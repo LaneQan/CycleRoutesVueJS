@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "postinstall": "npm install --save-dev webpack-dev-server ",
-    "dev": "webpack-dev-server --inline --progress --port $PORT --host 0.0.0.0 --config build/webpack.dev.conf.js",
+    "dev": "./node_modules/.bin/webpack-dev-server --inline --progress --port $PORT --host 0.0.0.0 --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "build": "node build/build.js",
     "build:production": "node build/build.js"
