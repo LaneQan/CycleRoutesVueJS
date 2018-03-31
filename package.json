@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "postinstall": "npm install express",
-    "dev": "webpack-dev-server --inline --progress --port 3001 --config build/webpack.dev.conf.js",
+    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "build": "node build/build.js",
     "build:production": "node build/build.js"
