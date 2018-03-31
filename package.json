@@ -5,7 +5,7 @@
   "author": "Evgeniy Parmon <laneqan1@gmail.com>",
   "private": true,
   "scripts": {
-    "postinstall": "npm install express",
+    "postinstall": "webpack -p --config ./webpack.prod.config.js --progress",
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "build": "node build/build.js",
