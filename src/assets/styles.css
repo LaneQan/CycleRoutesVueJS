@@ -1,0 +1,11 @@
+.login__form >>> label {
+    position: static;
+    transform: none !important;
+    -webkit-transform: none !important;
+    font-size: 12px;
+    margin-bottom: -7px;
+    margin-top: -3px;
+}
+.login__form.mt-4.card {
+    width: 300px;
+}
