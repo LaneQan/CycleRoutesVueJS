@@ -7,7 +7,7 @@
 					</v-card-media>
 					<v-card-title primary-title>
 						<div>
-							<div class="headline">Название</div>
+							<div class="headline">{{ route.name }}</div>
 							<span class="grey--text">25 км</span>
 							<span class="grey--text">Сложный</span>
 						</div>
@@ -29,12 +29,12 @@
 					</v-card-actions>
 					<v-slide-y-transition>
 						<v-card-text v-show="show">
-							Описание
+							{{ route.description }}
 						</v-card-text>
 					</v-slide-y-transition>
 				</v-card>
 			</div>	
-		</template>!
+		</template>
 	</div>
 </template>
 
