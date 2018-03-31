@@ -2,7 +2,7 @@
     <v-layout justify-center align-baseline>
         <v-card class="login__form mt-4">
             <v-card-title class="px-4">
-                <span class="login__title">Авторизация</span>
+                <span class="login__title">Вход</span>
             </v-card-title>
             <v-form class="px-4 pb-3" novalidate @submit.stop.prevent="handlelogIn()">
                 <v-text-field label="Почта" v-model="email" class="custom-input" :rules="rules" required>
@@ -14,7 +14,7 @@
                 <v-btn flat type="submit" :loading="waitlogin" :disabled="waitlogin" block>Войти</v-btn>
             </v-form>
             <v-card-text>
-                <span class="red--text" v-if="failed">The email or password is incorrect. Please try again.</span>
+                <span class="red--text" v-if="failed">Логин или пароль неверные. Пожалуйста, попробуйте ещё раз.</span>
             </v-card-text>
         </v-card>
     </v-layout>

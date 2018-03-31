@@ -67,7 +67,8 @@
 
 	.main-content {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+		
 	}
 
 	.card-image {

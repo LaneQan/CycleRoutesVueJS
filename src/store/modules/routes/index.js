@@ -9,7 +9,7 @@ const initialState = {
 
 const mutations = {
   [FETCH_ROUTES](state, routes) {
-    state.routes = [state.routes, ...routes];
+    state.routes = [ ...routes];
   }
 };
 
