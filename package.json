@@ -64,6 +64,9 @@
     "webpack-material-design-icons": "^0.1.0",
     "webpack-merge": "^4.1.0"
   },
+  "engines": {
+    "node": ">= 6.11.3"
+  },
   "browserslist": [
     "> 1%",
     "last 2 versions",
