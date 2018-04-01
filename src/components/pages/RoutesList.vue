@@ -1,9 +1,9 @@
 <template>
 	<div class="main-content">
 		<template v-for="route in routes">
-			<div class="routes-card">
+			<div class="route-card"> 
 				<v-card>
-					<v-card-media class="card-image" src="https://stat.citydog.by/content/_posts/442X361/5968b27883970.jpg">
+					<v-card-media class="route-card__image" src="https://stat.citydog.by/content/_posts/442X361/5968b27883970.jpg">
 					</v-card-media>
 					<v-card-title primary-title>
 						<div>
@@ -33,7 +33,7 @@
 						</v-card-text>
 					</v-slide-y-transition>
 				</v-card>
-			</div>	
+			</div>
 		</template>
 	</div>
 </template>
@@ -60,18 +60,25 @@
 </script>
 
 <style>
-	.routes-card {
-		margin: 10px;
-		max-width: 370px;
-	}
-
 	.main-content {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-		
+		grid-gap: 20px;
+		padding: 20px;
 	}
 
-	.card-image {
+	.route-card {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+	}
+
+	.card {
+		width: 100%;
+		max-width: 370px;
+	}
+	
+	.route-card__image {
 		height: 300px !important;
 	}
 </style>
