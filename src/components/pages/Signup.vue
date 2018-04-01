@@ -14,7 +14,7 @@
                 <v-btn flat type="submit" :loading="waitlogin" :disabled="waitlogin" block>Зарегистрироваться</v-btn>
             </v-form>
             <v-card-text>
-                <span class="red--text" v-if="failed">The email or password is incorrect. Please try again.</span>
+                <span class="red--text" v-if="failed">Почта или пароль уже заняты.</span>
             </v-card-text>
         </v-card>
     </v-layout>
@@ -28,7 +28,7 @@
                 email: '',
                 password: '',
                 loginPasswordVisible: false,
-                rules: [(value) => !!value || 'This field is required'],
+                rules: [(value) => !!value || 'Это поле обязательное'],
                 failed: false,
                 waitlogin: false
 

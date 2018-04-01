@@ -3,13 +3,13 @@
 		<template v-for="route in routes">
 			<div class="route-card"> 
 				<v-card>
-					<v-card-media class="route-card__image" src="https://stat.citydog.by/content/_posts/442X361/5968b27883970.jpg">
+					<v-card-media class="route-card__image" v-bind:src="route.image">
 					</v-card-media>
 					<v-card-title primary-title>
 						<div>
 							<div class="headline">{{ route.name }}</div>
-							<span class="grey--text">25 км</span>
-							<span class="grey--text">Сложный</span>
+							<span class="grey--text">{{ route.length }} км</span>
+							<span class="grey--text">{{ routeComplexity[route.complexity]}}</span>
 						</div>
 					</v-card-title>
 					<v-card-actions>
