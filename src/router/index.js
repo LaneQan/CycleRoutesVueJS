@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import RoutesList from '@/components/pages/RoutesList';
 import Login from '@/components/pages/Login';
 import Signup from '@/components/pages/Signup';
+import RouteInfo from '@/components/pages/RouteInfo';
 
 Vue.use(Router);
 
@@ -26,6 +27,11 @@ export default new Router({
             path: '/signup',
             name: 'Signup',
             component: Signup
+        },
+        {
+            path: '/routes/:id',
+            name: 'RouteInfo',
+            component: RouteInfo
         }
     ]
 });

@@ -1,20 +1,40 @@
 <template>
     <div>
-        <v-navigation-drawer v-if="$route.name !== 'Signup' && $route.name !== 'Login'" fixed app clipped v-model="drawer" width="257" class="nav-drawer">
-            <v-list dense>
-                <v-list-tile >
-                    <v-list-tile-action>
-                        <v-list-tile-content>
-                            <v-list-tile-title>
-                                 filters
-                            </v-list-tile-title>
-                        </v-list-tile-content>
-                    </v-list-tile-action>
-                </v-list-tile>
-            </v-list>
+        <v-navigation-drawer v-if="$route.name === 'RoutesList'" fixed app clipped v-model="drawer" width="257" class="nav-drawer">
+            <div class="filters">
+                <div class="filter-category">
+                    <h4 class="filter-title"> Длина маршрута: </h4>
+                    <v-layout class="filter-input" row wrap>
+                        <v-flex xs6>
+                            <v-text-field solo label="От"></v-text-field>
+                        </v-flex>
+                        <v-flex xs6>
+                            <v-text-field solo label="До"></v-text-field>
+                        </v-flex>
+                    </v-layout>
+                </div>
+                <div class="filter-category">
+                    <h4 class="filter-title"> Тип маршрута: </h4>
+                    <v-layout class="filter-select" row wrap>
+                        <v-select :items="routeTypes" label="Выбор типа" single-line></v-select>
+                    </v-layout>
+                </div>
+                <div class="filter-category">
+                    <h4 class="filter-title"> Направленность маршрута: </h4>
+                    <v-layout class="filter-select" row wrap>
+                        <v-select :items="routesLineTypes" label="Выбор типа" single-line></v-select>
+                    </v-layout>
+                </div>
+                <div class="filter-category">
+                    <h4 class="filter-title"> [CHANGE]Ландшафт местности </h4>
+                    <v-layout class="filter-select" row wrap>
+                        <v-select label="Выбор типа" single-line></v-select>
+                    </v-layout>
+                </div>
+            </div>
         </v-navigation-drawer>
         <v-toolbar color="indigo" dark fixed app height="70" clipped-left>
-            <v-toolbar-side-icon v-if="$route.name !== 'Signup' && $route.name !== 'Login'" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+            <v-toolbar-side-icon v-if="$route.name === 'RoutesList'" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
             <v-toolbar-title @click.stop="$router.push(`/routes`);">
                 <div class="nav-title">Веломаршруты</div>
             </v-toolbar-title>
@@ -26,19 +46,19 @@
                     <v-icon>mdi-menu-down</v-icon>
                 </v-btn>
                 <v-list v-if="userAuthenticated()" class="menu-list">
-                    <v-list-tile  class="tile-item" v-for="item in userAuthenticatedMenu" :key="item.title" @click="goToLink(item.route)">
+                    <v-list-tile class="tile-item" v-for="item in userAuthenticatedMenu" :key="item.title" @click="goToLink(item.route)">
                         <v-list-tile-title class="menu-list">
                             <v-icon class="menu-icon">{{ item.icon }}</v-icon>{{ item.title }}
                         </v-list-tile-title>
                     </v-list-tile>
-                    </v-list>
-                    <v-list v-else class="menu-list">
-                     <v-list-tile  class="tile-item" v-for="item in userNotAuthenticatedMenu" :key="item.title" @click="goToLink(item.route)">
+                </v-list>
+                <v-list v-else class="menu-list">
+                    <v-list-tile class="tile-item" v-for="item in userNotAuthenticatedMenu" :key="item.title" @click="goToLink(item.route)">
                         <v-list-tile-title class="menu-list">
                             <v-icon class="menu-icon">{{ item.icon }}</v-icon>{{ item.title }}
                         </v-list-tile-title>
                     </v-list-tile>
-                 </v-list>
+                </v-list>
             </v-menu>
         </v-toolbar>
     </div>
@@ -52,9 +72,7 @@ export default {
         return {
             drawer: null,
             test: false,
-            userAuthenticatedMenu: [
-                { title: 'Выход', icon: 'mdi-logout', route: 'exit' }
-            ],
+            userAuthenticatedMenu: [{ title: 'Выход', icon: 'mdi-logout', route: 'exit' }],
             userNotAuthenticatedMenu: [
                 {
                     title: 'Регистрация',
@@ -83,12 +101,6 @@ export default {
 <style scoped>
 .footer.footer--absolute {
     padding: 0 16px !important;
-}
-
-@media screen and (max-width: 410px) {
-    .nav-title {
-        display: none;
-    }
 }
 
 .nav-title {
@@ -132,5 +144,23 @@ button.menu-down.btn.btn--icon {
 .tile-item a {
     padding-left: 10px;
     height: 40px;
+}
+.filter-category {
+    width: 100%;
+}
+.filter-category:first-child {
+    padding-top: 15px;
+}
+.filter-category:not(:last-child) {
+    padding-bottom: 15px;
+}
+.filter-title {
+    padding-left: 10px;
+    padding-bottom: 5px;
+}
+.filter-input,
+.filter-select {
+    padding-left: 10px;
+    padding-right: 10px;
 }
 </style>
