@@ -3,10 +3,10 @@
         <v-navigation-drawer v-if="$route.name === 'RoutesList'" fixed app clipped v-model="drawer" width="257" class="nav-drawer">
             <div class="filters">
                 <div class="filter-category">
-                    <h4 class="filter-title"> Длина маршрута: </h4>
+                    <h4 class="filter-title"> Длина маршрута </h4>
                     <v-layout class="filter-input" row wrap>
                         <v-flex xs6>
-                            <v-text-field solo label="От"></v-text-field>
+                            <v-text-field v-model="firstLength" solo label="От"></v-text-field>
                         </v-flex>
                         <v-flex xs6>
                             <v-text-field solo label="До"></v-text-field>
@@ -14,21 +14,21 @@
                     </v-layout>
                 </div>
                 <div class="filter-category">
-                    <h4 class="filter-title"> Тип маршрута: </h4>
+                    <h4 class="filter-title"> Тип маршрута </h4>
                     <v-layout class="filter-select" row wrap>
-                        <v-select :items="routeTypes" label="Выбор типа" single-line></v-select>
+                        <v-select class="input-group--focused" :items="routeTypes" label="Тип" single-line></v-select>
                     </v-layout>
                 </div>
                 <div class="filter-category">
-                    <h4 class="filter-title"> Направленность маршрута: </h4>
+                    <h4 class="filter-title"> Направленность маршрута </h4>
                     <v-layout class="filter-select" row wrap>
-                        <v-select :items="routesLineTypes" label="Выбор типа" single-line></v-select>
+                        <v-select class="input-group--focused" :items="routesLineTypes" label="Направленность" single-line></v-select>
                     </v-layout>
                 </div>
                 <div class="filter-category">
-                    <h4 class="filter-title"> [CHANGE]Ландшафт местности </h4>
+                    <h4 class="filter-title"> [TODO]Ландшафт местности </h4>
                     <v-layout class="filter-select" row wrap>
-                        <v-select label="Выбор типа" single-line></v-select>
+                        <v-select class="input-group--focused" label="Выбор типа" single-line></v-select>
                     </v-layout>
                 </div>
             </div>
@@ -65,102 +65,115 @@
 </template>
 
 <script>
-import AuthService from '@/services/AuthService';
-export default {
-    name: 'nav-bar',
-    data() {
-        return {
-            drawer: null,
-            test: false,
-            userAuthenticatedMenu: [{ title: 'Выход', icon: 'mdi-logout', route: 'exit' }],
-            userNotAuthenticatedMenu: [
-                {
-                    title: 'Регистрация',
-                    icon: 'mdi-account-plus',
-                    route: 'signup'
-                },
-                {
-                    title: 'Авторизация',
-                    icon: 'mdi-login-variant',
-                    route: 'login'
-                }
-            ]
-        };
-    },
-    methods: {
-        userAuthenticated() {
-            return AuthService.isUserAuthenticated();
+    import AuthService from '@/services/AuthService';
+    export default {
+        name: 'nav-bar',
+        data() {
+            return {
+                firstLength: 0,
+                drawer: null,
+                userAuthenticatedMenu: [{ title: 'Выход', icon: 'mdi-logout', route: 'exit' }],
+                userNotAuthenticatedMenu: [
+                    {
+                        title: 'Регистрация',
+                        icon: 'mdi-account-plus',
+                        route: 'signup'
+                    },
+                    {
+                        title: 'Авторизация',
+                        icon: 'mdi-login-variant',
+                        route: 'login'
+                    }
+                ]
+            };
         },
-        goToLink(route) {
-            this.$router.push(`/${route}`);
+        methods: {
+            userAuthenticated() {
+                return AuthService.isUserAuthenticated();
+            },
+            goToLink(route) {
+                this.$router.push(`/${route}`);
+            }
         }
-    }
-};
+    };
 </script>
 
 <style scoped>
-.footer.footer--absolute {
-    padding: 0 16px !important;
-}
+    .footer.footer--absolute {
+        padding: 0 16px !important;
+    }
 
-.nav-title {
-    cursor: pointer;
-    font-size: 30px;
-    margin-left: 15px;
-    margin-bottom: 4px;
-}
-button.menu-down.btn.btn--icon {
-    margin-right: 16px;
-}
-.user-email {
-    margin-bottom: 2px;
-    margin-right: -6px;
-    font-size: 13px;
-    font-weight: 500;
-}
+    .nav-title {
+        cursor: pointer;
+        font-size: 30px;
+        margin-left: 15px;
+        margin-bottom: 4px;
+    }
 
-.list-tile {
-    padding-left: 8px;
-    padding-top: 10px;
-}
-.menu-icons {
-    min-width: 45px;
-}
-.menu-items {
-    font-size: 1.15em;
-}
-.nav-button {
-    margin-right: 60px;
-}
-.menu-icon {
-    margin-right: 10px;
-    font-size: 13px;
-}
-.menu-list {
-    padding: 0;
-    font-size: 14px;
-    overflow: hidden;
-}
-.tile-item a {
-    padding-left: 10px;
-    height: 40px;
-}
-.filter-category {
-    width: 100%;
-}
-.filter-category:first-child {
-    padding-top: 15px;
-}
-.filter-category:not(:last-child) {
-    padding-bottom: 15px;
-}
-.filter-title {
-    padding-left: 10px;
-    padding-bottom: 5px;
-}
-.filter-input,
-.filter-select {
-    padding-left: 10px;
-    padding-right: 10px;
-}
+    button.menu-down.btn.btn--icon {
+        margin-right: 16px;
+    }
+
+    .user-email {
+        margin-bottom: 2px;
+        margin-right: -6px;
+        font-size: 13px;
+        font-weight: 500;
+    }
+
+    .list-tile {
+        padding-left: 8px;
+        padding-top: 10px;
+    }
+
+    .menu-icons {
+        min-width: 45px;
+    }
+
+    .menu-items {
+        font-size: 1.15em;
+    }
+
+    .nav-button {
+        margin-right: 60px;
+    }
+
+    .menu-icon {
+        margin-right: 10px;
+        font-size: 13px;
+    }
+
+    .menu-list {
+        padding: 0;
+        font-size: 14px;
+        overflow: hidden;
+    }
+
+    .tile-item a {
+        padding-left: 10px;
+        height: 40px;
+    }
+
+    .filter-category {
+        width: 100%;
+    }
+
+    .filter-category:first-child {
+        padding-top: 15px;
+    }
+
+    .filter-category:not(:last-child) {
+        padding-bottom: 15px;
+    }
+
+    .filter-title {
+        padding-left: 10px;
+        padding-bottom: 5px;
+    }
+
+    .filter-input,
+    .filter-select {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
 </style>

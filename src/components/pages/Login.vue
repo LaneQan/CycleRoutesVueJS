@@ -5,10 +5,10 @@
                 <span class="login__title">Вход</span>
             </v-card-title>
             <v-form class="px-4" novalidate @submit.stop.prevent="handlelogIn()">
-                <v-text-field label="Почта" v-model="email" class="custom-input" :rules="rules" required>
+                <v-text-field label="Логин" v-model="login" :rules="rules" required>
                 </v-text-field>
 
-                <v-text-field label="Пароль" v-model="password" class="custom-input" :rules="rules" required type="password">
+                <v-text-field label="Пароль" v-model="password"  :rules="rules" required type="password">
                 </v-text-field>
 
                 <v-btn flat type="submit" :loading="waitlogin" :disabled="waitlogin" block>Войти</v-btn>
@@ -25,7 +25,7 @@ export default {
     name: 'Login',
     data() {
         return {
-            email: '',
+            login: '',
             password: '',
             loginPasswordVisible: false,
             rules: [value => !!value || 'Это поле обязательное'],
@@ -39,7 +39,7 @@ export default {
             this.failed = false;
             this.waitlogin = true;
             this.logIn({
-                Email: this.email,
+                Login: this.login,
                 Password: this.password
             }).then(
                 res => {
