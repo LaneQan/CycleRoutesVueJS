@@ -26,8 +26,7 @@ Vue.use(Vuetify, {
 Vue.mixin({
     data() {
         return {
-            routeComplexity: ['Легкий', 'Средний', 'Сложный'],
-            routeTypes: ['Городской', 'Загородный', 'Смешанный'],
+            routeTypes: ['Тип маршрута','Городской', 'Загородный', 'Смешанный'],
             routesLineTypes: ['Круговой', 'Прямой']
         };
     }

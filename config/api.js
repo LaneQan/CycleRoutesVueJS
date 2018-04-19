@@ -1,9 +1,5 @@
 const apiConfig = {
-  api: 'http://laneqan-001-site1.btempurl.com',
-  admin: {
-      email: 'admin',
-      password: 'admin'
-  },
-}
+    api: 'http://laneqan-001-site1.btempurl.com',
+};
 
 export default apiConfig;

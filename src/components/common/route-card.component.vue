@@ -11,7 +11,7 @@
       </v-card-title>
       <v-card-actions>
         <v-btn icon @click.native="showDescription = !showDescription">
-          <v-icon>{{ showDescription ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
+          <v-icon>{{ showDescription ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
         </v-btn>
         <v-spacer></v-spacer>
         <v-btn icon>
@@ -35,7 +35,7 @@
 
 <script>
   export default {
-    name: 'routecard.component',
+    name: 'route-card.component',
     props: ['id', 'image', 'name', 'length', 'description'],
     data() {
       return {

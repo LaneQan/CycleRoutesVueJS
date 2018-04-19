@@ -1,0 +1,6 @@
+export const FILTER_EDIT_MIN_LENGTH = 'filters/FILTER_EDIT_MIN_LENGTH';
+export const FILTER_EDIT_MAX_LENGTH = 'filters/FILTER_EDIT_MAX_LENGTH';
+
+export const FILTER_EDIT_COMPLEXITY = 'filters/FILTER_EDIT_COMPLEXITY';
+export const FILTER_EDIT_TYPE = 'filters/FILTER_EDIT_TYPE';
+export const FILTER_EDIT_LINE_TYPE = 'filters/FILTER_EDIT_LINE_TYPE';

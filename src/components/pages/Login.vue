@@ -13,7 +13,7 @@
 
                 <v-btn flat type="submit" :loading="waitlogin" :disabled="waitlogin" block>Войти</v-btn>
             </v-form>
-            <v-card-text>
+            <v-card-text class="text-xs-center">
                 <span class="red--text" v-if="failed">Логин или пароль неверные. Пожалуйста, попробуйте ещё раз.</span>
             </v-card-text>
         </v-card>
@@ -30,7 +30,7 @@ export default {
             loginPasswordVisible: false,
             rules: [value => !!value || 'Это поле обязательное'],
             failed: false,
-            waitlogin: false
+            waitlogin: false,
         };
     },
     methods: {
@@ -40,7 +40,7 @@ export default {
             this.waitlogin = true;
             this.logIn({
                 Login: this.login,
-                Password: this.password
+                Password: this.password,
             }).then(
                 res => {
                     this.waitlogin = false;
@@ -48,9 +48,9 @@ export default {
                 err => {
                     this.failed = true;
                     this.waitlogin = false;
-                }
+                },
             );
-        }
-    }
+        },
+    },
 };
 </script>

@@ -4,7 +4,7 @@ import * as getters from './getters';
 import { FETCH_ROUTES } from './mutation-types';
 
 const initialState = {
-    routes: []
+    routes: [],
 };
 
 const mutations = {
@@ -15,9 +15,9 @@ const mutations = {
 
 export default {
     state: {
-        ...initialState
+        ...initialState,
     },
     actions,
     getters,
-    mutations
+    mutations,
 };
