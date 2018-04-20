@@ -35,7 +35,7 @@
 
 <script>
   export default {
-    name: 'route-card.component',
+    name: 'card',
     props: ['id', 'image', 'name', 'length', 'description'],
     data() {
       return {
@@ -55,14 +55,14 @@
   };
 </script>
 
-<style>
+<style scoped>
   .route-card {
     display: flex;
     flex-direction: row;
     justify-content: center;
   }
 
-  .card {
+  .route-card > .card {
     width: 100%;
     max-width: 370px;
   }

@@ -74,6 +74,21 @@ export default {
         return {
             drawer: null,
             userAuthenticatedMenu: [
+                {
+                    title: 'Личный кабинет',
+                    icon: 'mdi-logout',
+                    route: 'profile',
+                },
+                {
+                    title: 'Мои маршруты',
+                    icon: 'mdi-logout',
+                    route: 'my-routes',
+                },
+                {
+                    title: 'Избранное',
+                    icon: 'mdi-logout',
+                    route: 'favourites',
+                },
                 { title: 'Выход', icon: 'mdi-logout', route: 'logout' },
             ],
             userNotAuthenticatedMenu: [

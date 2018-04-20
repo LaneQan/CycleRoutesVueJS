@@ -9,10 +9,10 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import CycleRouteCard from '@/components/common/route-card.component';
+import CycleRouteCard from '@/components/common/card.component';
 import NavBar from '@/components/common/nav-bar.component';
 export default {
-    name: 'RoutesList',
+    name: 'routes-list',
     components: {
         'route-card': CycleRouteCard,
     },
@@ -46,7 +46,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .main-content {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
