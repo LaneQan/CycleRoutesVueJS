@@ -10,9 +10,6 @@
         </div>
       </v-card-title>
       <v-card-actions>
-        <v-btn icon @click.native="showDescription = !showDescription">
-          <v-icon>{{ showDescription ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
-        </v-btn>
         <v-spacer></v-spacer>
         <v-btn icon>
           <v-icon>favorite</v-icon>
@@ -24,11 +21,6 @@
           <v-icon>share</v-icon>
         </v-btn>
       </v-card-actions>
-      <v-slide-y-transition>
-        <v-card-text v-show="showDescription">
-          {{ description }}
-        </v-card-text>
-      </v-slide-y-transition>
     </v-card>
   </div>
 </template>

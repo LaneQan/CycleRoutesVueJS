@@ -137,7 +137,6 @@ export default {
 .nav-title {
     cursor: pointer;
     font-size: 30px;
-    margin-left: 15px;
     margin-bottom: 4px;
 }
 

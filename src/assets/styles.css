@@ -1,3 +1,8 @@
+.content {
+    background-color: #F2F2F2;
+    padding-bottom: 30px !important;
+  }
+
 .login__form >>> label {
     position: static;
     transform: none !important;
@@ -9,3 +14,5 @@
 .login__form.mt-4.card {
     width: 300px;
 }
+
+

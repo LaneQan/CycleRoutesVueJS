@@ -1,5 +1,5 @@
 <template>
-    <v-container class="info-container">
+    <v-container v-if="route" class="info-container">
         <v-layout row wrap>
             <div class="info-card">
                 <v-card>
@@ -7,17 +7,26 @@
                 </v-card>
             </div>
             <div class="info-card">
+                <template v-if="route.images.length">
                     <carousel-3d width="500" height="320">
                         <template v-for="(image, index) in route.images">
-                              <slide :key="index" :index="index">
-    <img :src="image.name">
-  </slide>
+                            <slide :key="index" :index="index">
+                                <img :src="image.name">
+                            </slide>
                         </template>
-</carousel-3d>
+                    </carousel-3d>
+                </template>
+                <template v-if="!route.images.length">
+                    <carousel-3d width="500" height="280">
+                        <slide :index="0">
+                            <img :src="noImage">
+                        </slide>
+                    </carousel-3d>
+                </template>
             </div>
             <div class="info-card">
                 <v-card>
-                    <div class="card-description pl-3 py-2"> {{this.route.description}}</div>
+                    <div class="card-description px-3 py-2"> {{this.route.description}}</div>
                 </v-card>
             </div>
             <v-layout row wrap>
@@ -25,9 +34,9 @@
                     <div class="info-card info-map">
                         <v-card>
                             <v-flex class="route-map">
-                            <iframe frameborder="0" class="frame-map" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAATuCNslc3UeGBCHJ0rJeM2Lu0jwgcc6I
-    &q=Space+Needle,Seattle+WA" >
-                            </iframe>
+                                <iframe frameborder="0" class="frame-map" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAATuCNslc3UeGBCHJ0rJeM2Lu0jwgcc6I
+    &q=Space+Needle,Seattle+WA">
+                                </iframe>
                             </v-flex>
                         </v-card>
                     </div>
@@ -48,6 +57,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import { Carousel3d, Slide } from 'vue-carousel-3d';
+import noImage from '../../assets/images/static/no-image.png';
 export default {
     name: 'route-info',
     components: {
@@ -55,7 +65,9 @@ export default {
         Slide,
     },
     data() {
-        return {};
+        return {
+            noImage: noImage
+        };
     },
     created() {
         this.$store.dispatch('fetchRoute',this.$route.params.id).then(() => {
@@ -84,7 +96,7 @@ export default {
 }
 
 .card-description {
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .route-map {

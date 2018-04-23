@@ -2,7 +2,7 @@
   <div id="app">
     <v-app>
       <NavBarComponent />
-      <v-content>
+      <v-content >
         <router-view></router-view>
       </v-content>
     </v-app>
@@ -19,3 +19,6 @@
     },
   };
 </script>
+
+<style scoped>
+</style>
