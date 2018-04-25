@@ -1,6 +1,6 @@
 import axios from 'axios';
 import apiConfig from '@apiConfig';
-import { FETCH_ROUTES, FETCH_ROUTE } from './mutation-types';
+import { FETCH_ROUTES, FETCH_ROUTE, FETCH_USER_ROUTES } from './mutation-types';
 
 export function fetchRoutes({ commit }) {
     return new Promise((resolve, reject) => {
@@ -29,3 +29,18 @@ export function fetchRoute({ commit }, id) {
             });
     });
 }
+
+export function fetchUserRoutes({ commit }, userId) {
+    return new Promise((resolve, reject) => {
+        axios
+            .get(`${apiConfig.api}/api/routes/user/${userId}`)
+            .then(res => {
+                commit(FETCH_USER_ROUTES, res.data);
+                resolve();
+            })
+            .catch(err => {
+                reject(err);
+            });
+    });
+}
+

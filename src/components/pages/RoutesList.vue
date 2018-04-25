@@ -1,7 +1,7 @@
 <template>
-	<div class="main-content">
+	<div class="card-content">
 		<template v-for="route in filterRoutes">
-			<route-card v-bind:key="route.id" :id="route.id" :name="route.name" :image="route.image" :length="route.length" :description="route.description">
+			<route-card v-bind:key="route.id" :route="route" :showFavorite="true" :showBookmark="true">
 			</route-card>
 		</template>
 	</div>
@@ -23,8 +23,8 @@ export default {
     },
     created() {
         this.$store.dispatch('fetchRoutes').then(() => {
-            this.$store.commit(
-                'filters/FILTER_EDIT_MAX_LENGTH',
+            this.$store.dispatch(
+                'editMaxLength',
                 Math.max.apply(Math, this.routes.map(x => x.length)),
             );
         });
@@ -35,11 +35,23 @@ export default {
             filters: 'getFilters',
         }),
         filterRoutes() {
-            return this.routes.filter(
+            let filteredRoutes = this.routes;
+            if (this.filters.type != -1) {
+                filteredRoutes = filteredRoutes.filter(
+                    x => x.type === this.filters.type,
+                );
+            }
+            if (this.filters.lineType != -1) {
+                filteredRoutes = filteredRoutes.filter(
+                    x => x.lineType === this.filters.lineType,
+                );
+            }
+            filteredRoutes = filteredRoutes.filter(
                 x =>
-                    x.length > this.filters.minLength &&
-                    x.length < this.filters.maxLength,
+                    x.length >= this.filters.minLength &&
+                    x.length <= this.filters.maxLength,
             );
+            return filteredRoutes;
         },
     },
     methods: {},
@@ -47,10 +59,5 @@ export default {
 </script>
 
 <style scoped>
-.main-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    grid-gap: 20px;
-    padding: 20px;
-}
+
 </style>

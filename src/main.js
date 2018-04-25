@@ -28,8 +28,8 @@ Vue.use(Vuetify, {
 Vue.mixin({
     data() {
         return {
-            routeTypes: ['Все типы','Городской', 'Загородный', 'Смешанный'],
-            routesLineTypes: ['Все направленности','Круговой', 'Прямой']
+            routeTypes: [{ text: 'Все типы', value: -1 },{ text: 'Городской', value: 0 }, { text: 'Загородный', value: 1 }, { text: 'Смешанный', value: 2 }],
+            routesLineTypes: [{ text: 'Все направленности', value: -1 },{ text: 'Круговой', value: 0 }, { text: 'Прямой', value: 1 },]
         };
     }
 });

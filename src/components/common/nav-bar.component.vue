@@ -2,8 +2,8 @@
     <div>
         <v-navigation-drawer v-if="$route.name === 'RoutesList'" fixed app clipped v-model="drawer" width="257" class="nav-drawer">
             <div class="filters">
-                <div class="filter-category">
-                    <h4 class="filter-title"> Длина маршрута </h4>
+                <div class="filter-item">
+                    <h4 class="filter-item__title"> Длина маршрута </h4>
                     <v-layout class="filter-input" row wrap>
                         <v-flex xs6>
                             <v-text-field v-model="filters.minLength" solo label="От"></v-text-field>
@@ -13,24 +13,28 @@
                         </v-flex>
                     </v-layout>
                 </div>
-                <div class="filter-category">
-                    <h4 class="filter-title"> Тип маршрута </h4>
+                <div class="filter-item">
+                    <h4 class="filter-item__title"> Тип маршрута </h4>
                     <v-layout class="filter-select" row wrap>
-                        <v-select class="input-group--focused" :items="routeTypes" label="Тип маршрута" single-line></v-select>
+                        <v-select @change="typeChanged" class="input-group--focused" :items="routeTypes" label="Тип маршрута" single-line></v-select>
                     </v-layout>
                 </div>
-                <div class="filter-category">
-                    <h4 class="filter-title"> Направленность маршрута </h4>
+                <div class="filter-item">
+                    <h4 class="filter-item__title"> Направленность маршрута </h4>
                     <v-layout class="filter-select" row wrap>
-                        <v-select class="input-group--focused" :items="routesLineTypes" label="Направленность" single-line></v-select>
+                        <v-select @change="lineTypeChanged" class="input-group--focused" :items="routesLineTypes" label="Направленность" single-line></v-select>
                     </v-layout>
                 </div>
-                <div class="filter-category">
-                    <h4 class="filter-title"> [TODO]Ландшафт местности </h4>
+                <div class="filter-item">
+                    <h4 class="filter-item__title"> [TODO]Ландшафт местности </h4>
                     <v-layout class="filter-select" row wrap>
                         <v-select class="input-group--focused" label="Выбор типа" single-line></v-select>
                     </v-layout>
                 </div>
+                <div class="filter-item">
+                    TODO (button to clear filters)
+                </div>
+
             </div>
         </v-navigation-drawer>
         <v-toolbar color="indigo" dark fixed app height="70" clipped-left>
@@ -125,6 +129,12 @@ export default {
                 this.$router.push(`/${route}`);
             }
         },
+        typeChanged(value) {
+            this.$store.dispatch('editType', value);
+        },
+        lineTypeChanged(value) {
+            this.$store.dispatch('editLineType', value);
+        },
     },
 };
 </script>
@@ -184,19 +194,19 @@ button.menu-down.btn.btn--icon {
     height: 40px;
 }
 
-.filter-category {
+.filter-item {
     width: 100%;
 }
 
-.filter-category:first-child {
+.filter-item:first-child {
     padding-top: 15px;
 }
 
-.filter-category:not(:last-child) {
+.filter-item:not(:last-child) {
     padding-bottom: 15px;
 }
 
-.filter-title {
+.filter-item__title {
     padding-left: 10px;
     padding-bottom: 5px;
 }

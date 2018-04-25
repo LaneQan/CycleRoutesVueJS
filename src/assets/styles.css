@@ -1,7 +1,14 @@
 .content {
-    background-color: #F2F2F2;
+    background-color: #f2f2f2;
     padding-bottom: 30px !important;
-  }
+}
+
+.card-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-gap: 20px;
+    padding: 20px;
+}
 
 .login__form >>> label {
     position: static;
@@ -14,5 +21,3 @@
 .login__form.mt-4.card {
     width: 300px;
 }
-
-

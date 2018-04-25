@@ -1,20 +1,20 @@
 <template>
   <div class="route-card">
     <v-card>
-      <v-card-media class="route-card__image" v-bind:src="image" @click="routeInfo(id)">
+      <v-card-media class="route-card__image" v-bind:src="route.image" @click="routeInfo(route.id)">
       </v-card-media>
-      <v-card-title class="route-card__title" primary-title @click="routeInfo(id)">
+      <v-card-title class="route-card__title" primary-title @click="routeInfo(route.id)">
         <div>
-          <div class="headline">{{ name }}</div>
-          <span class="grey--text">{{ length }} км</span>
+          <div class="headline">{{ route.name }}</div>
+          <span class="grey--text">{{ route.length }} км</span>
         </div>
       </v-card-title>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn icon>
+        <v-btn v-if="showFavorite" icon>
           <v-icon>favorite</v-icon>
         </v-btn>
-        <v-btn icon>
+        <v-btn v-if="showBookmark" icon>
           <v-icon>bookmark</v-icon>
         </v-btn>
         <v-btn icon>
@@ -28,10 +28,9 @@
 <script>
   export default {
     name: 'card',
-    props: ['id', 'image', 'name', 'length', 'description'],
+    props: ['route', 'showFavorite', 'showBookmark'],
     data() {
       return {
-        showDescription: false
       };
     },
     methods: {
