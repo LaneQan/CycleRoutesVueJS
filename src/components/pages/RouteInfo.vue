@@ -102,6 +102,6 @@ export default {
 .frame-map {
     border: 0;
     width: 96vw;
-    max-width: 700px;
+    max-width: 600px;
 }
 </style>
