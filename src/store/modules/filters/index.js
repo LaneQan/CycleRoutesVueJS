@@ -1,7 +1,10 @@
 import * as actions from './actions';
 import * as getters from './getters';
 
-import { EDIT_LINE_TYPE, EDIT_TYPE, EDIT_MAX_LENGTH } from './mutation-types';
+import {
+    EDIT_MAX_LENGTH,
+    CLEAR_FILTERS
+} from './mutation-types';
 
 const initialState = {
     filters: {
@@ -9,28 +12,22 @@ const initialState = {
         maxLength: null,
         type: -1,
         lineType: -1,
+        landscape: -1,
     },
 };
 
 const mutations = {
-    [EDIT_TYPE](state, value) {
-        state.filters = {
-            ...state.filters,
-            type: value,
-        };
-    },
-    [EDIT_LINE_TYPE](state, value) {
-        state.filters = {
-            ...state.filters,
-            lineType: value,
-        };
-    },
     [EDIT_MAX_LENGTH](state, value) {
         state.filters = {
             ...state.filters,
             maxLength: value,
         };
     },
+    [CLEAR_FILTERS](state) {
+        state.filters = {
+            ...initialState.filters
+        }
+    }
 };
 
 export default {

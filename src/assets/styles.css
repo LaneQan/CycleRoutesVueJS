@@ -3,14 +3,14 @@
     padding-bottom: 30px !important;
 }
 
-.card-content {
+.cards-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     grid-gap: 20px;
     padding: 20px;
 }
 
-.login__form >>> label {
+.login__form>>>label {
     position: static;
     transform: none !important;
     -webkit-transform: none !important;
@@ -18,6 +18,14 @@
     margin-bottom: -7px;
     margin-top: -3px;
 }
+
 .login__form.mt-4.card {
     width: 300px;
+}
+
+.progress-loading {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    min-height: 100%;
 }

@@ -1,5 +1,5 @@
 <template>
-    <v-container v-if="route" class="info-container">
+    <v-container v-if="!loading" class="info-container">
         <v-layout row wrap>
             <div class="info-card">
                 <v-card>
@@ -8,7 +8,7 @@
             </div>
             <div class="info-card">
                 <template v-if="route.images.length">
-                    <carousel-3d width="500" height="320">
+                    <carousel-3d border="0" width="500" height="320">
                         <template v-for="(image, index) in route.images">
                             <slide :key="index" :index="index">
                                 <img :src="image.name">
@@ -17,7 +17,7 @@
                     </carousel-3d>
                 </template>
                 <template v-if="!route.images.length">
-                    <carousel-3d width="500" height="280">
+                    <carousel-3d border="0" width="500" height="280">
                         <slide :index="0">
                             <img :src="noImage">
                         </slide>
@@ -51,6 +51,9 @@
             </v-layout>
         </v-layout>
     </v-container>
+    <v-card-text v-else class="progress-loading">
+        <v-progress-circular indeterminate v-bind:size="70" v-bind:width="7" color="indigo"></v-progress-circular>
+    </v-card-text>
 </template>
 
 
@@ -59,61 +62,69 @@ import { mapGetters } from 'vuex';
 import { Carousel3d, Slide } from 'vue-carousel-3d';
 import noImage from '../../assets/images/static/no-image.png';
 export default {
-    name: 'route-info',
-    components: {
-        Carousel3d,
-        Slide,
-    },
-    data() {
-        return {
-            noImage: noImage
-        };
-    },
-    created() {
-        this.$store.dispatch('fetchRoute',this.$route.params.id).then(() => {
-        });
-    },
-    computed: {
-        ...mapGetters({
-            route: 'getCurrentRoute',
-        }),
-    },
+  name: 'route-info',
+  components: {
+    Carousel3d,
+    Slide,
+  },
+  data() {
+    return {
+      loading: false,
+      noImage: noImage,
+    };
+  },
+  created() {
+    this.loading = true;
+    this.$store.dispatch('fetchRoute', this.$route.params.id).then(() => {
+      this.loading = false;
+    });
+  },
+  computed: {
+    ...mapGetters({
+      route: 'getCurrentRoute',
+    }),
+  },
 };
 </script>
 
 <style scoped>
 .info-container {
-    max-width: 1150px;
-    padding: 0px;
+  max-width: 1150px;
+  padding: 0px;
 }
+
 .info-card {
-    width: 100%;
-    padding: 16px 8px 0px 8px;
+  width: 100%;
+  padding: 0px 8px 24px 8px;
+}
+
+.info-card:first-child {
+  padding-top: 20px;
 }
 
 .card-title {
-    font-size: 32px;
+  font-size: 32px;
 }
 
 .card-description {
-    font-size: 18px;
+  font-size: 18px;
 }
 
 .route-map {
-    flex: 1 1 auto;
-    display: flex;
-    height: 50vw;
-    max-height: 600px;
+  flex: 1 1 auto;
+  display: flex;
+  height: 50vw;
+  max-height: 600px;
 }
 
 .info-map {
-    padding-left: 10px !important;
-    padding-right: 10px !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
 }
 
 .frame-map {
-    border: 0;
-    width: 96vw;
-    max-width: 600px;
+  border: 0;
+  width: 96vw;
+  max-width: 600px;
 }
 </style>

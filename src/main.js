@@ -28,8 +28,52 @@ Vue.use(Vuetify, {
 Vue.mixin({
     data() {
         return {
-            routeTypes: [{ text: 'Все типы', value: -1 },{ text: 'Городской', value: 0 }, { text: 'Загородный', value: 1 }, { text: 'Смешанный', value: 2 }],
-            routesLineTypes: [{ text: 'Все направленности', value: -1 },{ text: 'Круговой', value: 0 }, { text: 'Прямой', value: 1 },]
+            routeTypes: [{
+                text: 'Все типы',
+                value: -1
+            }, {
+                text: 'Городской',
+                value: 0
+            }, {
+                text: 'Загородный',
+                value: 1
+            }, {
+                text: 'Смешанный',
+                value: 2
+            }],
+
+            routeLineTypes: [{
+                text: 'Все направленности',
+                value: -1
+            }, {
+                text: 'Круговой',
+                value: 0
+            }, {
+                text: 'Прямой',
+                value: 1
+            }, ],
+
+            routeLandscapes: [{
+                    text: 'Все ландшафты',
+                    value: -1
+                },
+                {
+                    text: 'Гладкий',
+                    value: 0
+                },
+                {
+                    text: 'Холмистый',
+                    value: 1
+                },
+                {
+                    text: 'Горный',
+                    value: 2
+                },
+                {
+                    text: 'Смешанный',
+                    value: 3
+                },
+            ]
         };
     }
 });
@@ -38,6 +82,8 @@ new Vue({
     el: '#app',
     store,
     router,
-    components: { App },
+    components: {
+        App
+    },
     template: '<App/>'
 });

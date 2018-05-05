@@ -17,6 +17,9 @@
         <v-btn v-if="showBookmark" icon>
           <v-icon>bookmark</v-icon>
         </v-btn>
+        <v-btn v-if="showDelete" icon>
+          <v-icon>mdi-delete</v-icon>
+        </v-btn>
         <v-btn icon>
           <v-icon>share</v-icon>
         </v-btn>
@@ -28,7 +31,7 @@
 <script>
   export default {
     name: 'card',
-    props: ['route', 'showFavorite', 'showBookmark'],
+    props: ['route', 'showFavorite', 'showBookmark', 'showDelete'],
     data() {
       return {
       };
@@ -65,5 +68,15 @@
   .route-card__image,
   .route-card__title {
     cursor: pointer;
+  }
+
+  .route-card__title, .route-card__title > div {
+    width: 100%;
+  }
+
+  .route-card__title >>> .headline {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 </style>

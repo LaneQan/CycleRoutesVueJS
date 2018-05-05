@@ -11,10 +11,10 @@
                 <v-text-field label="Почта" class="input-group--focused" v-model="email" :rules="fieldRules" required>
                 </v-text-field>
 
-                <v-text-field label="Пароль" class="input-group--focused"  v-model="password" :rules="fieldRules" required type="password">
+                <v-text-field label="Пароль" class="input-group--focused" v-model="password" :rules="fieldRules" required type="password">
                 </v-text-field>
 
-                <v-text-field label="Подтверждение пароля" class="input-group--focused"  v-model="passwordConfirm" :rules="fieldRules" required type="password">
+                <v-text-field label="Подтверждение пароля" class="input-group--focused" v-model="passwordConfirm" :rules="fieldRules" required type="password">
                 </v-text-field>
 
                 <v-btn flat type="submit" block>Зарегистрироваться</v-btn>
@@ -28,31 +28,31 @@
 <script>
 import { mapActions } from 'vuex';
 export default {
-    name: 'Signup',
-    data() {
-        return {
-            failed: false,
-            login: '',
-            email: '',
-            password: '',
-            passwordConfirm: '',
-            fieldRules: [value => !!value || 'Это поле обязательное'],
-        };
-    },
-    methods: {
-        ...mapActions(['signUp']),
-        handleRegister() {
-            this.signUp({
-                Email: this.email,
-                Login: this.login,
-                Password: this.password,
-            }).then(
-                res => {},
-                err => {
-                    this.failed = true;
-                },
-            );
+  name: 'Signup',
+  data() {
+    return {
+      failed: false,
+      login: '',
+      email: '',
+      password: '',
+      passwordConfirm: '',
+      fieldRules: [value => !!value || 'Это поле обязательное'],
+    };
+  },
+  methods: {
+    ...mapActions(['signUp']),
+    handleRegister() {
+      this.signUp({
+        Email: this.email,
+        Login: this.login,
+        Password: this.password,
+      }).then(
+        res => {},
+        err => {
+          this.failed = true;
         },
+      );
     },
+  },
 };
 </script>
