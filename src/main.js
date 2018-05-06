@@ -29,7 +29,7 @@ Vue.mixin({
     data() {
         return {
             routeTypes: [{
-                text: 'Все типы',
+                text: 'Все',
                 value: -1
             }, {
                 text: 'Городской',
@@ -43,7 +43,7 @@ Vue.mixin({
             }],
 
             routeLineTypes: [{
-                text: 'Все направленности',
+                text: 'Все',
                 value: -1
             }, {
                 text: 'Круговой',
@@ -54,7 +54,7 @@ Vue.mixin({
             }, ],
 
             routeLandscapes: [{
-                    text: 'Все ландшафты',
+                    text: 'Все',
                     value: -1
                 },
                 {
@@ -73,6 +73,27 @@ Vue.mixin({
                     text: 'Смешанный',
                     value: 3
                 },
+            ],
+            lengthTimes: [{
+                    text: 'Все',
+                    value: -1
+                },
+                {
+                    text: 'Менее 6 часов',
+                    value: 0
+                },
+                {
+                    text: 'Дневной',
+                    value: 1
+                },
+                {
+                    text: 'Два дня с ночевкой',
+                    value: 2
+                },
+                {
+                    text: 'Больше двух дней',
+                    value: 3
+                }
             ]
         };
     }

@@ -13,6 +13,7 @@ const initialState = {
         type: -1,
         lineType: -1,
         landscape: -1,
+        lengthTime: -1,
     },
 };
 

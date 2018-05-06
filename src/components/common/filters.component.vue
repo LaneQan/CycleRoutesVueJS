@@ -26,7 +26,13 @@
     <div class="filter-item">
       <h4 class="filter-item__title"> Ландшафт местности </h4>
       <v-layout class="filter-select" row wrap>
-        <v-select v-model="filters.landscape" class="input-group--focused" :items="routeLandscapes" label="Выбор типа" single-line></v-select>
+        <v-select v-model="filters.landscape" class="input-group--focused" :items="routeLandscapes" label="Тип" single-line></v-select>
+      </v-layout>
+    </div>
+        <div class="filter-item">
+      <h4 class="filter-item__title"> Протяженность по времени </h4>
+      <v-layout class="filter-select" row wrap>
+        <v-select v-model="filters.lengthTime" class="input-group--focused" :items="lengthTimes" label="Время маршрута" single-line></v-select>
       </v-layout>
     </div>
     <div class="filter-item">

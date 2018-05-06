@@ -40,7 +40,7 @@
 import AuthService from '@/services/AuthService';
 import { mapGetters, mapActions } from 'vuex';
 import Filters from '@/components/common/filters.component';
-import noPhoto from '../../assets/images/static/no-photo.jpg';
+import noPhoto from '../../assets/static/images/no-photo.jpg';
 
 export default {
   name: 'nav-bar',
@@ -54,17 +54,17 @@ export default {
       userAuthenticatedMenu: [
         {
           title: 'Личный кабинет',
-          icon: 'mdi-logout',
+          icon: 'mdi-account-box',
           route: 'profile',
         },
         {
           title: 'Мои маршруты',
-          icon: 'mdi-logout',
+          icon: 'mdi-format-list-bulleted',
           route: 'my-routes',
         },
         {
           title: 'Избранное',
-          icon: 'mdi-logout',
+          icon: 'mdi-heart-box',
           route: 'favourites',
         },
         { title: 'Выход', icon: 'mdi-logout', route: 'logout' },
@@ -134,7 +134,7 @@ button.menu-down.btn.btn--icon {
 
 .menu-icon {
   margin-right: 10px;
-  font-size: 13px;
+  font-size: 18px;
 }
 
 .menu-list {

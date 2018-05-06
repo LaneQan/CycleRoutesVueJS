@@ -60,7 +60,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import { Carousel3d, Slide } from 'vue-carousel-3d';
-import noImage from '../../assets/images/static/no-image.png';
+import noImage from '../../assets/static/images/no-image.png';
 export default {
   name: 'route-info',
   components: {

@@ -50,17 +50,6 @@
 </script>
 
 <style scoped>
-  .route-card {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-  }
-
-  .route-card > .card {
-    width: 100%;
-    max-width: 370px;
-  }
-
   .route-card__image {
     height: 300px !important;
   }

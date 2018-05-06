@@ -6,12 +6,12 @@ import Signup from '@/components/pages/Signup';
 import RouteInfo from '@/components/pages/RouteInfo';
 import MyRoutes from '@/components/pages/MyRoutes';
 import FavouriteRoutes from '@/components/pages/FavouriteRoutes';
+import AddRoute from '@/components/pages/AddRoute';
 
 Vue.use(Router);
 
 export default new Router({
-    routes: [
-        {
+    routes: [{
             path: '/routes',
             name: 'RoutesList',
             component: RoutesList,
@@ -45,6 +45,11 @@ export default new Router({
             name: 'FavouriteRoutes',
             component: FavouriteRoutes,
         },
+        {
+            path: '/add-route',
+            name: 'AddRoute',
+            component: AddRoute,
+        }
     ],
 });
 
@@ -54,7 +59,9 @@ function authRequired(to, from, next) {
     } else {
         next({
             path: '/login',
-            query: { redirect: to.fullPath },
+            query: {
+                redirect: to.fullPath
+            },
         });
     }
 }
