@@ -14,25 +14,25 @@
     <div class="filter-item">
       <h4 class="filter-item__title"> Тип маршрута </h4>
       <v-layout class="filter-select" row wrap>
-        <v-select v-model="filters.type" class="input-group--focused" :items="routeTypes" label="Тип маршрута" single-line></v-select>
+        <v-select v-model="filters.type" :items="routeTypes" label="Тип маршрута" single-line></v-select>
       </v-layout>
     </div>
     <div class="filter-item">
       <h4 class="filter-item__title"> Направленность маршрута </h4>
       <v-layout class="filter-select" row wrap>
-        <v-select v-model="filters.lineType" class="input-group--focused" :items="routeLineTypes" label="Направленность" single-line></v-select>
+        <v-select v-model="filters.lineType" :items="routeLineTypes" label="Направленность" single-line></v-select>
       </v-layout>
     </div>
     <div class="filter-item">
       <h4 class="filter-item__title"> Ландшафт местности </h4>
       <v-layout class="filter-select" row wrap>
-        <v-select v-model="filters.landscape" class="input-group--focused" :items="routeLandscapes" label="Тип" single-line></v-select>
+        <v-select v-model="filters.landscape" :items="routeLandscapes" label="Тип" single-line></v-select>
       </v-layout>
     </div>
         <div class="filter-item">
       <h4 class="filter-item__title"> Протяженность по времени </h4>
       <v-layout class="filter-select" row wrap>
-        <v-select v-model="filters.lengthTime" class="input-group--focused" :items="lengthTimes" label="Время маршрута" single-line></v-select>
+        <v-select v-model="filters.lengthTime" :items="lengthTimes" label="Время маршрута" single-line></v-select>
       </v-layout>
     </div>
     <div class="filter-item">
