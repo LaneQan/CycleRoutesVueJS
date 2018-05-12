@@ -1,0 +1,11 @@
+user profile
+validation
+favourites logic
+likes logic
+image uploader
+map set
+comments
+add sign up on sign in page
+add admin with panel to moderate
+add success info if authorized
+views count

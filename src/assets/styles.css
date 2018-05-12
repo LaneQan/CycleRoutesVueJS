@@ -40,3 +40,24 @@
     width: 100%;
     max-width: 370px;
 }
+
+.list-tile {
+    padding-left: 8px;
+    padding-top: 10px;
+}
+
+.menu-icon {
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.menu-list {
+    padding: 0;
+    font-size: 14px;
+    overflow: hidden;
+}
+
+.tile-item a {
+    padding-left: 10px;
+    height: 40px;
+}

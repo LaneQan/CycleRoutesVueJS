@@ -9,23 +9,16 @@
         <div class="nav-title">Веломаршруты</div>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-avatar size="40px" class="hidden-xs-only avatar-image">
-        <img :src="user.image ? user.image : noPhoto" alt="avatar">
+      <v-avatar v-if="isUserAuthenticated()" size="40px" class="hidden-xs-only avatar-image">
+        <img :src="user.Image ? user.Image : noPhoto" alt="avatar">
       </v-avatar>
-      <div v-if="userAuthenticated()" class="user-email"> {{ user.Email }} </div>
+      <div v-if="isUserAuthenticated()" class="user-email"> {{ user.Email }} </div>
       <v-menu bottom left offset-y>
         <v-btn icon slot="activator" dark class="more-btn">
           <v-icon>mdi-menu-down</v-icon>
         </v-btn>
-        <v-list v-if="userAuthenticated()" class="menu-list">
-          <v-list-tile class="tile-item" v-for="item in userAuthenticatedMenu" :key="item.title" @click="goTo(item.route)">
-            <v-list-tile-title class="menu-list">
-              <v-icon class="menu-icon">{{ item.icon }}</v-icon>{{ item.title }}
-            </v-list-tile-title>
-          </v-list-tile>
-        </v-list>
-        <v-list v-else class="menu-list">
-          <v-list-tile class="tile-item" v-for="item in userNotAuthenticatedMenu" :key="item.title" @click="goTo(item.route)">
+        <v-list class="menu-list">
+          <v-list-tile class="tile-item" v-for="item in userMenu()" :key="item.title" @click="goTo(item.route)">
             <v-list-tile-title class="menu-list">
               <v-icon class="menu-icon">{{ item.icon }}</v-icon>{{ item.title }}
             </v-list-tile-title>
@@ -91,7 +84,7 @@ export default {
   methods: {
     ...mapActions(['logOut']),
 
-    userAuthenticated() {
+    isUserAuthenticated() {
       return AuthService.isUserAuthenticated();
     },
     goTo(route) {
@@ -102,6 +95,9 @@ export default {
         this.$router.push(`/${route}`);
       }
     },
+    userMenu() {
+      return AuthService.isUserAuthenticated() ? this.userAuthenticatedMenu : this.userNotAuthenticatedMenu;
+    }
   },
 };
 </script>
@@ -125,27 +121,6 @@ button.menu-down.btn.btn--icon {
   margin-right: 10px;
   font-size: 14px;
   font-weight: 500;
-}
-
-.list-tile {
-  padding-left: 8px;
-  padding-top: 10px;
-}
-
-.menu-icon {
-  margin-right: 10px;
-  font-size: 18px;
-}
-
-.menu-list {
-  padding: 0;
-  font-size: 16px;
-  overflow: hidden;
-}
-
-.tile-item a {
-  padding-left: 10px;
-  height: 40px;
 }
 
 .avatar-image {

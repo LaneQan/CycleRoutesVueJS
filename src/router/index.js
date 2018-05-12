@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import AuthService from '../services/AuthService';
 import RoutesList from '@/components/pages/RoutesList';
 import Login from '@/components/pages/Login';
 import Signup from '@/components/pages/Signup';
@@ -39,16 +40,19 @@ export default new Router({
             path: '/my-routes',
             name: 'MyRoutes',
             component: MyRoutes,
+            beforeEnter: authRequired,
         },
         {
             path: '/favourite-routes',
             name: 'FavouriteRoutes',
             component: FavouriteRoutes,
+            beforeEnter: authRequired,
         },
         {
             path: '/add-route',
             name: 'AddRoute',
             component: AddRoute,
+            beforeEnter: authRequired,
         }
     ],
 });

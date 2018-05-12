@@ -8,7 +8,7 @@
                 <v-text-field label="Логин" v-model="login" :rules="rules" required>
                 </v-text-field>
 
-                <v-text-field label="Пароль" v-model="password"  :rules="rules" required type="password">
+                <v-text-field label="Пароль" v-model="password" :rules="rules" required type="password">
                 </v-text-field>
 
                 <v-btn flat type="submit" :loading="waitlogin" :disabled="waitlogin" block>Войти</v-btn>
@@ -22,35 +22,35 @@
 <script>
 import { mapActions } from 'vuex';
 export default {
-    name: 'Login',
-    data() {
-        return {
-            login: '',
-            password: '',
-            loginPasswordVisible: false,
-            rules: [value => !!value || 'Это поле обязательное'],
-            failed: false,
-            waitlogin: false,
-        };
-    },
-    methods: {
-        ...mapActions(['logIn']),
-        handlelogIn() {
-            this.failed = false;
-            this.waitlogin = true;
-            this.logIn({
-                Login: this.login,
-                Password: this.password,
-            }).then(
-                res => {
-                    this.waitlogin = false;
-                },
-                err => {
-                    this.failed = true;
-                    this.waitlogin = false;
-                },
-            );
+  name: 'Login',
+  data() {
+    return {
+      login: '',
+      password: '',
+      loginPasswordVisible: false,
+      rules: [value => !!value || 'Это поле обязательное'],
+      failed: false,
+      waitlogin: false,
+    };
+  },
+  methods: {
+    ...mapActions(['logIn']),
+    handlelogIn() {
+      this.failed = false;
+      this.waitlogin = true;
+      this.logIn({
+        Login: this.login,
+        Password: this.password,
+      }).then(
+        res => {
+          this.waitlogin = false;
         },
+        err => {
+          this.failed = true;
+          this.waitlogin = false;
+        },
+      );
     },
+  },
 };
 </script>

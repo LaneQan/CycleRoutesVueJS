@@ -6,6 +6,7 @@ import App from './App';
 import router from './router';
 import store from './store';
 import Carousel3d from 'vue-carousel-3d';
+import SocialSharing from 'vue-social-sharing';
 
 import 'vuetify/dist/vuetify.min.css';
 import './assets/styles.css';
@@ -15,6 +16,7 @@ Vue.config.productionTip = false;
 Vue.use(Vuetify);
 Vue.use(Vuex);
 Vue.use(Carousel3d);
+Vue.use(SocialSharing);
 
 Vue.use(Vuetify, {
     theme: {
@@ -58,7 +60,7 @@ Vue.mixin({
                     value: -1
                 },
                 {
-                    text: 'Гладкий',
+                    text: 'Равнинный',
                     value: 0
                 },
                 {

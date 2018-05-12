@@ -11,61 +11,116 @@
       </v-card-title>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn v-if="showFavorite" icon>
+        <v-btn v-if="showFavorite && isUserAuthenticated()" icon>
           <v-icon>favorite</v-icon>
         </v-btn>
-        <v-btn v-if="showBookmark" icon>
+        <v-btn v-if="showBookmark && isUserAuthenticated()" icon>
           <v-icon>bookmark</v-icon>
         </v-btn>
-        <v-btn v-if="showDelete" icon>
+        <v-btn v-if="showDelete && isUserAuthenticated()" icon>
           <v-icon>mdi-delete</v-icon>
         </v-btn>
-        <v-btn icon>
-          <v-icon>share</v-icon>
-        </v-btn>
+        <v-menu bottom left offset-y>
+          <v-btn icon slot="activator" class="more-btn">
+            <v-icon>share</v-icon>
+          </v-btn>
+          <v-list class="menu-list">
+            <v-list-tile class="tile-item" v-for="item in networksList" :key="item.network">
+              <social-sharing inline-template>
+                <v-list-tile-title class="menu-list">
+                  <network :network="item.network">
+                    <v-icon>{{ item.icon }}</v-icon> {{ item.title }}
+                  </network>
+                </v-list-tile-title>
+              </social-sharing>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
       </v-card-actions>
     </v-card>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'card',
-    props: ['route', 'showFavorite', 'showBookmark', 'showDelete'],
-    data() {
-      return {
-      };
+import AuthService from '@/services/AuthService';
+export default {
+  name: 'card',
+  props: ['route', 'showFavorite', 'showBookmark', 'showDelete'],
+  data() {
+    return {
+      networksList: [
+        {
+          title: 'VK',
+          network: 'vk',
+          icon: 'mdi-vk',
+        },
+        {
+          title: 'Twitter',
+          network: 'twitter',
+          icon: 'mdi-twitter',
+        },
+        {
+          title: 'Одноклассники',
+          network: 'odnoklassniki',
+          icon: 'mdi-odnoklassniki',
+        },
+        {
+          title: 'Skype',
+          network: 'skype',
+          icon: 'mdi-skype',
+        },
+        {
+          title: 'Telegram',
+          network: 'telegram',
+          icon: 'mdi-telegram',
+        },
+        {
+          title: 'Facebook',
+          network: 'facebook',
+          icon: 'mdi-facebook',
+        },
+        {
+          title: 'Whatsapp',
+          network: 'whatsapp',
+          icon: 'mdi-whatsapp',
+        },
+      ],
+    };
+  },
+  methods: {
+    routeInfo(routeId) {
+      this.$router.push({
+        path: `routes/${routeId}`,
+        params: {
+          id: routeId,
+        },
+      });
     },
-    methods: {
-      routeInfo(routeId) {
-        this.$router.push({
-          path: `routes/${routeId}`,
-          params: {
-            id: routeId
-          }
-        });
-      }
-    }
-  };
+    isUserAuthenticated() {
+      return AuthService.isUserAuthenticated();
+    },
+  },
+};
 </script>
 
 <style scoped>
-  .route-card__image {
-    height: 300px !important;
-  }
+.route-card__image {
+  height: 300px !important;
+}
 
-  .route-card__image,
-  .route-card__title {
-    cursor: pointer;
-  }
+.route-card__image,
+.route-card__title {
+  cursor: pointer;
+}
 
-  .route-card__title, .route-card__title > div {
-    width: 100%;
-  }
+.route-card__title,
+.route-card__title > div {
+  width: 100%;
+}
 
-  .route-card__title >>> .headline {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-  }
+.route-card__title>>>.headline {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
 </style>
