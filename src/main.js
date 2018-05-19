@@ -10,6 +10,7 @@ import SocialSharing from 'vue-social-sharing';
 
 import 'vuetify/dist/vuetify.min.css';
 import './assets/styles.css';
+import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 
 Vue.config.productionTip = false;
 

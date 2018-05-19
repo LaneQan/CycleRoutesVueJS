@@ -4,3 +4,6 @@ const apiConfig = {
 };
 
 export default apiConfig;
+
+// api: 'http://localhost:5000',
+// api: 'http://laneqan-001-site1.btempurl.com',

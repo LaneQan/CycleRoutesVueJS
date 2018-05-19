@@ -103,6 +103,11 @@ export default {
 </script>
 
 <style scoped>
+
+.toolbar {
+  z-index: 10000;
+}
+
 .footer.footer--absolute {
   padding: 0 16px !important;
 }

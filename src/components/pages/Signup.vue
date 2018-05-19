@@ -5,16 +5,16 @@
                 <span class="login__title">Регистрация</span>
             </v-card-title>
             <v-form class="px-4" novalidate @submit.stop.prevent="handleRegister()">
-                <v-text-field label="Логин" class="input-group--focused" v-model="login" :rules="fieldRules" required>
+                <v-text-field label="Логин" v-model="login" :rules="fieldRules" required>
                 </v-text-field>
 
-                <v-text-field label="Почта" class="input-group--focused" v-model="email" :rules="fieldRules" required>
+                <v-text-field label="Почта" v-model="email" :rules="fieldRules" required>
                 </v-text-field>
 
-                <v-text-field label="Пароль" class="input-group--focused" v-model="password" :rules="fieldRules" required type="password">
+                <v-text-field label="Пароль" v-model="password" :rules="fieldRules" required type="password">
                 </v-text-field>
 
-                <v-text-field label="Подтверждение пароля" class="input-group--focused" v-model="passwordConfirm" :rules="fieldRules" required type="password">
+                <v-text-field label="Подтверждение пароля" v-model="passwordConfirm" :rules="fieldRules" required type="password">
                 </v-text-field>
 
                 <v-btn flat type="submit" block>Зарегистрироваться</v-btn>

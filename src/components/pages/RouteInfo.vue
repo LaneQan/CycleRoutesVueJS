@@ -55,23 +55,23 @@
 								</v-layout>
 								<v-layout class="about-container__item" row wrap>
 									<v-flex class="item__title" xs6> Дата добавления</v-flex>
-									<v-flex xs6> 12.05.2018 </v-flex>
+									<v-flex class="item__description" xs6> 12.05.2018 </v-flex>
 								</v-layout>
 								<v-layout class="about-container__item" row wrap>
 									<v-flex class="item__title" xs6> Длина маршрута</v-flex>
-									<v-flex xs6> {{ this.route.length }} км </v-flex>
+									<v-flex class="item__description" xs6> {{ this.route.length }} км </v-flex>
 								</v-layout>
 								<v-layout class="about-container__item" row wrap>
 									<v-flex class="item__title" xs6> Тип маршрута</v-flex>
-									<v-flex xs6> {{ routeTypes.find(x => x.value === this.route.type).text}} </v-flex>
+									<v-flex class="item__description" xs6> {{ routeTypes.find(x => x.value === this.route.type).text}} </v-flex>
 								</v-layout>
 								<v-layout class="about-container__item" row wrap>
 									<v-flex class="item__title" xs6> Ландшафт местности</v-flex>
-									<v-flex xs6> {{ routeLandscapes.find(x => x.value === this.route.landscape).text}} </v-flex>
+									<v-flex class="item__description" xs6> {{ routeLandscapes.find(x => x.value === this.route.landscape).text}} </v-flex>
 								</v-layout>
 								<v-layout class="about-container__item" row wrap>
 									<v-flex class="item__title" xs6> Протяженность по времени</v-flex>
-									<v-flex xs6> {{ lengthTimes.find(x => x.value === this.route.lengthTime).text}} </v-flex>
+									<v-flex class="item__description" xs6> {{ lengthTimes.find(x => x.value === this.route.lengthTime).text}} </v-flex>
 								</v-layout>
 								<v-layout class="about-container__item" row wrap>
 									<v-flex xs4> TODO views</v-flex>
@@ -140,7 +140,7 @@ export default {
 
 .card-title {
   font-size: 32px;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .card-description {
@@ -170,7 +170,7 @@ export default {
 }
 
 .about-container__item {
-  height: 80px;
+  height: 70px;
   align-items: center;
 }
 
@@ -178,7 +178,11 @@ export default {
   font-weight: 500;
 }
 
+.about-container__item > .item__description {
+    padding-left: 5px;
+}
 .avatar-image {
   padding-right: 5px;
 }
+
 </style>

@@ -1,44 +1,48 @@
 <template>
-  <div class="route-card">
-    <v-card>
-      <v-card-media class="route-card__image" v-bind:src="route.image" @click="routeInfo(route.id)">
-      </v-card-media>
-      <v-card-title class="route-card__title" primary-title @click="routeInfo(route.id)">
-        <div>
-          <div class="headline">{{ route.name }}</div>
-          <span class="grey--text">{{ route.length }} км</span>
-        </div>
-      </v-card-title>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn v-if="showFavorite && isUserAuthenticated()" icon>
-          <v-icon>favorite</v-icon>
-        </v-btn>
-        <v-btn v-if="showBookmark && isUserAuthenticated()" icon>
-          <v-icon>bookmark</v-icon>
-        </v-btn>
-        <v-btn v-if="showDelete && isUserAuthenticated()" icon>
-          <v-icon>mdi-delete</v-icon>
-        </v-btn>
-        <v-menu bottom left offset-y>
-          <v-btn icon slot="activator" class="more-btn">
-            <v-icon>share</v-icon>
-          </v-btn>
-          <v-list class="menu-list">
-            <v-list-tile class="tile-item" v-for="item in networksList" :key="item.network">
-              <social-sharing inline-template>
-                <v-list-tile-title class="menu-list">
-                  <network :network="item.network">
-                    <v-icon>{{ item.icon }}</v-icon> {{ item.title }}
-                  </network>
-                </v-list-tile-title>
-              </social-sharing>
-            </v-list-tile>
-          </v-list>
-        </v-menu>
-      </v-card-actions>
-    </v-card>
-  </div>
+    <div class="route-card">
+        <v-card>
+            <v-card-media class="route-card__image" v-bind:src="route.image" @click="routeInfo(route.id)">
+            </v-card-media>
+            <v-card-title class="route-card__title" primary-title @click="routeInfo(route.id)">
+                <div>
+                    <div class="views">
+                        <div class="views-count">
+                            <v-icon class="views-icon">mdi-eye</v-icon>&nbsp; {{ route.viewsCount }}</div>
+                    </div>
+                    <div class="headline">{{ route.name }}</div>
+                    <span class="grey--text">{{ route.length }} км</span>
+                </div>
+            </v-card-title>
+            <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn v-if="showFavorite && isUserAuthenticated()" icon>
+                    <v-icon>favorite</v-icon>
+                </v-btn>
+                <v-btn v-if="showBookmark && isUserAuthenticated()" icon>
+                    <v-icon>bookmark</v-icon>
+                </v-btn>
+                <v-btn v-if="showDelete && isUserAuthenticated()" icon>
+                    <v-icon>mdi-delete</v-icon>
+                </v-btn>
+                <v-menu bottom left offset-y>
+                    <v-btn icon slot="activator" class="more-btn">
+                        <v-icon>share</v-icon>
+                    </v-btn>
+                    <v-list class="menu-list">
+                        <v-list-tile class="tile-item" v-for="item in networksList" :key="item.network">
+                            <social-sharing inline-template>
+                                <v-list-tile-title class="menu-list">
+                                    <network :network="item.network">
+                                        <v-icon>{{ item.icon }}</v-icon> {{ item.title }}
+                                    </network>
+                                </v-list-tile-title>
+                            </social-sharing>
+                        </v-list-tile>
+                    </v-list>
+                </v-menu>
+            </v-card-actions>
+        </v-card>
+    </div>
 </template>
 
 <script>
@@ -108,6 +112,10 @@ export default {
   height: 300px !important;
 }
 
+.route-card__title {
+    padding-top: 12px;
+}
+
 .route-card__image,
 .route-card__title {
   cursor: pointer;
@@ -122,5 +130,20 @@ export default {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+}
+
+.views {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.views-icon {
+    font-size: 18px;
+}
+.views-count {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 200;
 }
 </style>
