@@ -1,12 +1,15 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import Vuex from 'vuex';
+import Carousel3d from 'vue-carousel-3d';
+import SocialSharing from 'vue-social-sharing';
+import VeeValidate, { Validator } from 'vee-validate';
+
 
 import App from './App';
 import router from './router';
 import store from './store';
-import Carousel3d from 'vue-carousel-3d';
-import SocialSharing from 'vue-social-sharing';
+import ru from 'vee-validate/dist/locale/ru';
 
 import 'vuetify/dist/vuetify.min.css';
 import './assets/styles.css';
@@ -14,10 +17,14 @@ import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 
 Vue.config.productionTip = false;
 
+
 Vue.use(Vuetify);
 Vue.use(Vuex);
 Vue.use(Carousel3d);
 Vue.use(SocialSharing);
+Vue.use(VeeValidate);
+
+Validator.localize('ru', ru);
 
 Vue.use(Vuetify, {
     theme: {

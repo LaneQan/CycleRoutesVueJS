@@ -5,9 +5,13 @@
             </v-card-media>
             <v-card-title class="route-card__title" primary-title @click="routeInfo(route.id)">
                 <div>
-                    <div class="views">
-                        <div class="views-count">
-                            <v-icon class="views-icon">mdi-eye</v-icon>&nbsp; {{ route.viewsCount }}</div>
+                    <div class="stats">
+                        <div class="stats-count stats-views">
+                            <v-icon class="stats-icon">mdi-eye</v-icon>&nbsp; {{ route.viewsCount }}
+                        </div>
+                        <div class="stats-count stats-likes">
+                            <v-icon class="stats-icon">mdi-heart</v-icon>&nbsp; {{ route.likesCount }}
+                        </div>
                     </div>
                     <div class="headline">{{ route.name }}</div>
                     <span class="grey--text">{{ route.length }} км</span>
@@ -15,11 +19,8 @@
             </v-card-title>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn v-if="showFavorite && isUserAuthenticated()" icon>
+                <v-btn v-if="showFavorite && isUserAuthenticated()" icon @click="handleLike(route.id)" v-bind:class="{ 'btn-liked': route.isLiked }">
                     <v-icon>favorite</v-icon>
-                </v-btn>
-                <v-btn v-if="showBookmark && isUserAuthenticated()" icon>
-                    <v-icon>bookmark</v-icon>
                 </v-btn>
                 <v-btn v-if="showDelete && isUserAuthenticated()" icon>
                     <v-icon>mdi-delete</v-icon>
@@ -30,7 +31,7 @@
                     </v-btn>
                     <v-list class="menu-list">
                         <v-list-tile class="tile-item" v-for="item in networksList" :key="item.network">
-                            <social-sharing inline-template>
+                            <social-sharing :url="`http://cycleroutes.herokuapp.com/#/routes/${route.id}`" :title="`Веломаршрут: ${route.name}`" inline-template>
                                 <v-list-tile-title class="menu-list">
                                     <network :network="item.network">
                                         <v-icon>{{ item.icon }}</v-icon> {{ item.title }}
@@ -47,9 +48,10 @@
 
 <script>
 import AuthService from '@/services/AuthService';
+import { mapActions } from 'vuex';
 export default {
   name: 'card',
-  props: ['route', 'showFavorite', 'showBookmark', 'showDelete'],
+  props: ['route', 'showFavorite', 'showDelete'],
   data() {
     return {
       networksList: [
@@ -92,6 +94,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(['likeRoute']),
     routeInfo(routeId) {
       this.$router.push({
         path: `routes/${routeId}`,
@@ -103,6 +106,10 @@ export default {
     isUserAuthenticated() {
       return AuthService.isUserAuthenticated();
     },
+    handleLike(routeId) {
+        this.likeRoute(routeId);
+
+    },
   },
 };
 </script>
@@ -113,7 +120,7 @@ export default {
 }
 
 .route-card__title {
-    padding-top: 12px;
+  padding-top: 12px;
 }
 
 .route-card__image,
@@ -132,18 +139,27 @@ export default {
   overflow: hidden;
 }
 
-.views {
+.stats {
   display: flex;
   justify-content: flex-end;
 }
 
-.views-icon {
-    font-size: 18px;
+.stats-icon {
+  font-size: 18px;
 }
-.views-count {
+
+.stats-count {
   display: flex;
   align-items: center;
   font-size: 14px;
   font-weight: 200;
+}
+
+.stats-likes {
+  padding-left: 8px;
+}
+
+.btn-liked {
+    color: red;
 }
 </style>

@@ -1,5 +1,5 @@
 const apiConfig = {
-    api: 'http://laneqan-001-site1.btempurl.com',
+    api: 'http://localhost:5000',
     apiKey: 'AIzaSyAATuCNslc3UeGBCHJ0rJeM2Lu0jwgcc6I',
 };
 

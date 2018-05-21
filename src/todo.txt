@@ -1,10 +1,3 @@
-add sign up on sign in page
-validation
-favourites logic
-likes logic
-
-
-
 user profile
 image uploader
 map set
@@ -13,6 +6,10 @@ add admin with panel to moderate
 
 
 
-add success info if authorized
+add info if unauthorized
+add sign up on sign in page
 
 
+fix:
+likes logic (back, jwt)
+validation

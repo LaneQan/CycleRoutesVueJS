@@ -7,7 +7,7 @@
       </v-card>
     </div>
     <template v-for="route in filterRoutes">
-      <route-card v-bind:key="route.id" :route="route" :showFavorite="true" :showBookmark="true">
+      <route-card v-bind:key="route.id" :route="route" :showFavorite="true">
       </route-card>
     </template>
   </div>
