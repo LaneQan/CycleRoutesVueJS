@@ -1,49 +1,49 @@
 <template>
-    <div class="route-card">
-        <v-card>
-            <v-card-media class="route-card__image" v-bind:src="route.image" @click="routeInfo(route.id)">
-            </v-card-media>
-            <v-card-title class="route-card__title" primary-title @click="routeInfo(route.id)">
-                <div>
-                    <div class="stats">
-                        <div class="stats-count stats-views">
-                            <v-icon class="stats-icon">mdi-eye</v-icon>&nbsp; {{ route.viewsCount }}
-                        </div>
-                        <div class="stats-count stats-likes">
-                            <v-icon class="stats-icon">mdi-heart</v-icon>&nbsp; {{ route.likesCount }}
-                        </div>
-                    </div>
-                    <div class="headline">{{ route.name }}</div>
-                    <span class="grey--text">{{ route.length }} км</span>
-                </div>
-            </v-card-title>
-            <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn v-if="showFavorite && isUserAuthenticated()" icon @click="handleLike(route.id)" v-bind:class="{ 'btn-liked': route.isLiked }">
-                    <v-icon>favorite</v-icon>
-                </v-btn>
-                <v-btn v-if="showDelete && isUserAuthenticated()" icon>
-                    <v-icon>mdi-delete</v-icon>
-                </v-btn>
-                <v-menu bottom left offset-y>
-                    <v-btn icon slot="activator" class="more-btn">
-                        <v-icon>share</v-icon>
-                    </v-btn>
-                    <v-list class="menu-list">
-                        <v-list-tile class="tile-item" v-for="item in networksList" :key="item.network">
-                            <social-sharing :url="`http://cycleroutes.herokuapp.com/#/routes/${route.id}`" :title="`Веломаршрут: ${route.name}`" inline-template>
-                                <v-list-tile-title class="menu-list">
-                                    <network :network="item.network">
-                                        <v-icon>{{ item.icon }}</v-icon> {{ item.title }}
-                                    </network>
-                                </v-list-tile-title>
-                            </social-sharing>
-                        </v-list-tile>
-                    </v-list>
-                </v-menu>
-            </v-card-actions>
-        </v-card>
-    </div>
+  <div class="route-card">
+    <v-card>
+      <v-card-media class="route-card__image" v-bind:src="route.image" @click="routeInfo(route.id)">
+      </v-card-media>
+      <v-card-title class="route-card__title" primary-title @click="routeInfo(route.id)">
+        <div>
+          <div class="stats">
+            <div class="stats-count stats-views">
+              <v-icon class="stats-icon">mdi-eye</v-icon>&nbsp; {{ route.viewsCount }}
+            </div>
+            <div class="stats-count stats-likes">
+              <v-icon class="stats-icon">mdi-heart</v-icon>&nbsp; {{ route.likesCount }}
+            </div>
+          </div>
+          <div class="headline">{{ route.name }}</div>
+          <span class="grey--text">{{ route.length }} км</span>
+        </div>
+      </v-card-title>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn v-if="showFavorite && isUserAuthenticated()" icon @click="handleLike(route.id)" v-bind:class="{ 'btn-liked': route.isLiked }">
+          <v-icon>favorite</v-icon>
+        </v-btn>
+        <v-btn v-if="showDelete && isUserAuthenticated()" icon>
+          <v-icon>mdi-delete</v-icon>
+        </v-btn>
+        <v-menu bottom left offset-y>
+          <v-btn icon slot="activator" class="more-btn">
+            <v-icon>share</v-icon>
+          </v-btn>
+          <v-list class="menu-list">
+            <v-list-tile class="tile-item" v-for="item in networksList" :key="item.network">
+              <social-sharing :url="`http://cycleroutes.herokuapp.com/#/routes/${route.id}`" :title="`Веломаршрут: ${route.name}`" inline-template>
+                <v-list-tile-title class="menu-list">
+                  <network :network="item.network">
+                    <v-icon>{{ item.icon }}</v-icon> {{ item.title }}
+                  </network>
+                </v-list-tile-title>
+              </social-sharing>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
+      </v-card-actions>
+    </v-card>
+  </div>
 </template>
 
 <script>
@@ -107,8 +107,7 @@ export default {
       return AuthService.isUserAuthenticated();
     },
     handleLike(routeId) {
-        this.likeRoute(routeId);
-
+      this.likeRoute(routeId);
     },
   },
 };
@@ -133,7 +132,7 @@ export default {
   width: 100%;
 }
 
-.route-card__title>>>.headline {
+.route-card__title >>> .headline {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -160,6 +159,6 @@ export default {
 }
 
 .btn-liked {
-    color: red;
+  color: red;
 }
 </style>

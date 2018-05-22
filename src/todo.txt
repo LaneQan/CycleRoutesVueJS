@@ -11,5 +11,4 @@ add sign up on sign in page
 
 
 fix:
-likes logic (back, jwt)
 validation

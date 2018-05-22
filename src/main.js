@@ -4,12 +4,14 @@ import Vuex from 'vuex';
 import Carousel3d from 'vue-carousel-3d';
 import SocialSharing from 'vue-social-sharing';
 import VeeValidate, { Validator } from 'vee-validate';
+import axios from 'axios';
 
 
 import App from './App';
 import router from './router';
 import store from './store';
 import ru from 'vee-validate/dist/locale/ru';
+import AuthService from '@/services/AuthService';
 
 import 'vuetify/dist/vuetify.min.css';
 import './assets/styles.css';
@@ -33,6 +35,18 @@ Vue.use(Vuetify, {
         accent: '#8c9eff',
         error: '#b71c1c'
     }
+});
+
+axios.interceptors.request.use((config) => {
+    if (!config.url.match(/operation\/login/i)) {
+        config = {
+            ...config,
+            headers: {
+                'Authorization': AuthService.getAuthToken()
+            }
+        };
+    }
+    return config;
 });
 
 Vue.mixin({

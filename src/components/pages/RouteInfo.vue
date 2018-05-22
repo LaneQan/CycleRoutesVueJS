@@ -1,11 +1,13 @@
 <template>
 	<v-container v-if="!loading" class="info-container">
 		<v-layout row wrap>
+
 			<div class="info-card">
 				<v-card>
 					<div class="card-title pl-3 py-2">{{this.route.name}}</div>
 				</v-card>
 			</div>
+
 			<div class="info-card">
 				<template v-if="route.images.length">
 					<carousel-3d border="0" width="500" height="320">
@@ -24,12 +26,15 @@
 					</carousel-3d>
 				</template>
 			</div>
+
 			<div class="info-card">
 				<v-card>
 					<div class="card-description px-3 py-2"> {{this.route.description}}</div>
 				</v-card>
 			</div>
+
 			<v-layout row wrap>
+
 				<v-flex lg6 md6 sm12 xs12>
 					<div class="info-card info-map">
 						<v-card>
@@ -41,6 +46,7 @@
 						</v-card>
 					</div>
 				</v-flex>
+
 				<v-flex lg6 md6 sm12 xs12>
 					<div class="info-card">
 						<v-card>
@@ -74,15 +80,53 @@
 									<v-flex class="item__description" xs6> {{ lengthTimes.find(x => x.value === this.route.lengthTime).text}} </v-flex>
 								</v-layout>
 								<v-layout class="about-container__item" row wrap>
-									<v-flex xs4> TODO views</v-flex>
-									<v-flex xs4> TODO buttons (like) </v-flex>
-									<v-flex xs4> TODO buttons (share) </v-flex>
+									<v-flex xs4 class="stats-count">
+										<v-layout justify-center>
+											<v-icon class="stats-icon">mdi-eye</v-icon>&nbsp; {{ route.viewsCount }}
+										</v-layout>
+									</v-flex>
+									<v-flex xs4>
+										<v-layout justify-center align-center>
+											<v-btn v-if="isUserAuthenticated()" icon @click="handleLike(route.id)" v-bind:class="{ 'btn-liked': route.isLiked }">
+												<v-icon>favorite</v-icon>
+											</v-btn>
+											<span class="likes-count"> {{ route.likesCount }} </span>
+										</v-layout>
+									</v-flex>
+									<v-flex xs4>
+										<v-layout justify-center>
+											<v-menu bottom right offset-y>
+												<v-btn icon slot="activator" class="more-btn">
+													<v-icon>share</v-icon>
+												</v-btn>
+												<v-list class="menu-list">
+													<v-list-tile class="tile-item" v-for="item in networksList" :key="item.network">
+														<social-sharing :url="`http://cycleroutes.herokuapp.com/#/routes/${route.id}`" :title="`Веломаршрут: ${route.name}`" inline-template>
+															<v-list-tile-title class="menu-list">
+																<network :network="item.network">
+																	<v-icon>{{ item.icon }}</v-icon> {{ item.title }}
+																</network>
+															</v-list-tile-title>
+														</social-sharing>
+													</v-list-tile>
+												</v-list>
+											</v-menu>
+										</v-layout>
+									</v-flex>
 								</v-layout>
 							</div>
 						</v-card>
 					</div>
 				</v-flex>
+
 			</v-layout>
+
+			<div class="info-card">
+				<v-card>
+					<div class="card-comments__title px-3 py-2"> Комментарии: </div>
+				</v-card>
+			</div>
+
 		</v-layout>
 	</v-container>
 	<v-card-text v-else class="progress-loading">
@@ -92,10 +136,12 @@
 
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import { Carousel3d, Slide } from 'vue-carousel-3d';
 import noImage from '../../assets/static/images/no-image.png';
 import noPhoto from '../../assets/static/images/no-photo.jpg';
+import AuthService from '@/services/AuthService';
+
 export default {
   name: 'route-info',
   components: {
@@ -107,6 +153,43 @@ export default {
       loading: false,
       noImage: noImage,
       noPhoto: noPhoto,
+      networksList: [
+        {
+          title: 'VK',
+          network: 'vk',
+          icon: 'mdi-vk',
+        },
+        {
+          title: 'Twitter',
+          network: 'twitter',
+          icon: 'mdi-twitter',
+        },
+        {
+          title: 'Одноклассники',
+          network: 'odnoklassniki',
+          icon: 'mdi-odnoklassniki',
+        },
+        {
+          title: 'Skype',
+          network: 'skype',
+          icon: 'mdi-skype',
+        },
+        {
+          title: 'Telegram',
+          network: 'telegram',
+          icon: 'mdi-telegram',
+        },
+        {
+          title: 'Facebook',
+          network: 'facebook',
+          icon: 'mdi-facebook',
+        },
+        {
+          title: 'Whatsapp',
+          network: 'whatsapp',
+          icon: 'mdi-whatsapp',
+        },
+      ],
     };
   },
   created() {
@@ -119,6 +202,15 @@ export default {
     ...mapGetters({
       route: 'getCurrentRoute',
     }),
+  },
+  methods: {
+    ...mapActions(['likeRoute']),
+    handleLike() {
+      this.likeRoute(this.route.id);
+    },
+    isUserAuthenticated() {
+      return AuthService.isUserAuthenticated();
+    },
   },
 };
 </script>
@@ -170,8 +262,12 @@ export default {
 }
 
 .about-container__item {
-  height: 70px;
+  padding: 23px 0 23px;
   align-items: center;
+}
+
+.about-container__item:last-child {
+  padding: 0px;
 }
 
 .about-container__item > .item__title {
@@ -179,10 +275,33 @@ export default {
 }
 
 .about-container__item > .item__description {
-    padding-left: 5px;
+  padding-left: 5px;
 }
+
 .avatar-image {
   padding-right: 5px;
 }
 
+.stats-icon {
+  font-size: 23px;
+}
+
+.stats-count {
+  display: flex;
+  align-items: center;
+  font-size: 19px;
+  font-weight: 200;
+}
+
+.likes-count {
+  font-size: 18px;
+}
+
+.btn-liked {
+  color: red;
+}
+
+.card-comments__title {
+	font-size: 26px;
+}
 </style>

@@ -19,6 +19,7 @@ const mutations = {
     [LOG_OUT](state) {
         AuthService.deauthenticateUser();
         state.user = {};
+        location.reload();
     },
 };
 
