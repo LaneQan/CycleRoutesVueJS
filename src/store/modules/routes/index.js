@@ -24,12 +24,12 @@ const mutations = {
     [FETCH_USER_ROUTES](state, routes) {
         state.routes = [...routes];
     },
-    [LIKE_ROUTE](state, routeId) {
-        if (state.currentRoute) {
+    [LIKE_ROUTE](state, payload) {
+        if (payload.likeType === 1) {
             state.currentRoute.isLiked ? state.currentRoute.likesCount-- : state.currentRoute.likesCount++;
             state.currentRoute.isLiked = !state.currentRoute.isLiked;    
         } else {
-            let route = state.routes.find(x => x.id === routeId)
+            let route = state.routes.find(x => x.id === payload.routeId)
             route.isLiked ? route.likesCount-- : route.likesCount++;
             route.isLiked = !route.isLiked;
         }

@@ -44,12 +44,12 @@ export function fetchUserRoutes({ commit }, userId) {
     });
 }
 
-export function likeRoute({ commit }, routeId) {
+export function likeRoute({ commit }, payload) {
     return new Promise((resolve, reject) => {
         axios
-            .get(`${apiConfig.api}/api/routes/like/${routeId}`)
+            .get(`${apiConfig.api}/api/routes/like/${payload.routeId}`)
             .then(res => {
-                commit(LIKE_ROUTE, routeId);
+                commit(LIKE_ROUTE, payload);
                 resolve();
             })
             .catch(err => {

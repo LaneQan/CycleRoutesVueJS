@@ -53,33 +53,39 @@
 							<div class="about-container pa-3">
 								<v-layout class="about-container__item" row wrap>
 									<v-flex class="item__title" xs6> Автор</v-flex>
-									<v-flex xs6>
+									<v-flex class="item__description" xs6>
 										<v-avatar size="36px" class="hidden-xs-only avatar-image">
 											<img :src="route.user.image ? route.user.image : noPhoto" alt="avatar">
 										</v-avatar>
 										{{ route.user.login }} </v-flex>
 								</v-layout>
+								<v-divider></v-divider>
 								<v-layout class="about-container__item" row wrap>
 									<v-flex class="item__title" xs6> Дата добавления</v-flex>
 									<v-flex class="item__description" xs6> 12.05.2018 </v-flex>
 								</v-layout>
+								<v-divider></v-divider>
 								<v-layout class="about-container__item" row wrap>
 									<v-flex class="item__title" xs6> Длина маршрута</v-flex>
 									<v-flex class="item__description" xs6> {{ this.route.length }} км </v-flex>
 								</v-layout>
+								<v-divider></v-divider>
 								<v-layout class="about-container__item" row wrap>
 									<v-flex class="item__title" xs6> Тип маршрута</v-flex>
 									<v-flex class="item__description" xs6> {{ routeTypes.find(x => x.value === this.route.type).text}} </v-flex>
 								</v-layout>
+								<v-divider></v-divider>
 								<v-layout class="about-container__item" row wrap>
 									<v-flex class="item__title" xs6> Ландшафт местности</v-flex>
 									<v-flex class="item__description" xs6> {{ routeLandscapes.find(x => x.value === this.route.landscape).text}} </v-flex>
 								</v-layout>
+								<v-divider></v-divider>
 								<v-layout class="about-container__item" row wrap>
-									<v-flex class="item__title" xs6> Протяженность по времени</v-flex>
+									<v-flex class="item__title" xs6> Протяженность времени</v-flex>
 									<v-flex class="item__description" xs6> {{ lengthTimes.find(x => x.value === this.route.lengthTime).text}} </v-flex>
 								</v-layout>
-								<v-layout class="about-container__item" row wrap>
+								<v-divider></v-divider>
+								<v-layout class="about-container__item mt-2" row wrap>
 									<v-flex xs4 class="stats-count">
 										<v-layout justify-center>
 											<v-icon class="stats-icon">mdi-eye</v-icon>&nbsp; {{ route.viewsCount }}
@@ -204,9 +210,11 @@ export default {
     }),
   },
   methods: {
-    ...mapActions(['likeRoute']),
     handleLike() {
-      this.likeRoute(this.route.id);
+      this.$store.dispatch('likeRoute', {
+        routeId: this.route.id,
+        likeType: 1,
+      });
     },
     isUserAuthenticated() {
       return AuthService.isUserAuthenticated();
@@ -242,8 +250,8 @@ export default {
 .route-map {
   flex: 1 1 auto;
   display: flex;
-  height: 50vw;
-  max-height: 600px;
+  max-height: 530px;
+	height: 50vw;
 }
 
 .info-map {
@@ -275,7 +283,7 @@ export default {
 }
 
 .about-container__item > .item__description {
-  padding-left: 5px;
+  padding-left: 15px;
 }
 
 .avatar-image {
@@ -302,6 +310,17 @@ export default {
 }
 
 .card-comments__title {
-	font-size: 26px;
+  font-size: 26px;
+}
+
+@media (max-width: 960px) {
+  .frame-map {
+    max-width: 960px;
+  }
+}
+  @media (min-width: 961px) {
+    .route-map {
+      height: 531px;
+    }
 }
 </style>

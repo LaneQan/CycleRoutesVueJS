@@ -107,7 +107,7 @@ export default {
       return AuthService.isUserAuthenticated();
     },
     handleLike(routeId) {
-      this.likeRoute(routeId);
+      this.$store.dispatch('likeRoute', { routeId: this.route.id, likeType: 2 });
     },
   },
 };

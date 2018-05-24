@@ -109,7 +109,7 @@ export default {
   flex: 1 1 auto;
   display: flex;
   height: 50vw;
-  max-height: 600px;
+  max-height: 530px;
 }
 
 .info-map {
@@ -120,7 +120,6 @@ export default {
 .frame-map {
   border: 0;
   width: 96vw;
-  max-width: 600px;
 }
 
 </style>
