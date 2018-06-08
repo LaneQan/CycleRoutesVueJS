@@ -24,7 +24,7 @@
                 </v-card>
             </div>
             <v-layout row wrap>
-                <v-flex lg6 md6 sm12 xs12>
+                <v-flex xs12>
                     <div class="info-card info-map">
                         <v-card>
                             <v-flex class="route-map">
@@ -35,7 +35,7 @@
                         </v-card>
                     </div>
                 </v-flex>
-                <v-flex lg6 md6 sm12 xs12>
+                <v-flex xs12>
                     <div class="info-card">
                         <v-card>
                             <div class="card-title pl-3 py-2"> Info </div>
@@ -119,7 +119,7 @@ export default {
 
 .frame-map {
   border: 0;
-  width: 96vw;
+  width: 100%
 }
 
 </style>

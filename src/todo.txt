@@ -2,13 +2,4 @@ user profile
 image uploader
 map set
 comments
-add admin with panel to moderate
 
-
-
-add info if unauthorized
-add sign up on sign in page
-
-
-fix:
-validation

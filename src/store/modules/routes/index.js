@@ -5,7 +5,8 @@ import {
     FETCH_ROUTES,
     FETCH_ROUTE,
     FETCH_USER_ROUTES,
-    LIKE_ROUTE
+    LIKE_ROUTE,
+    FETCH_FAVOURITE_ROUTES
 } from './mutation-types';
 
 const initialState = {
@@ -33,7 +34,10 @@ const mutations = {
             route.isLiked ? route.likesCount-- : route.likesCount++;
             route.isLiked = !route.isLiked;
         }
-    }
+    },
+    [FETCH_FAVOURITE_ROUTES](state, routes) {
+        state.routes = [...routes];
+    },
 };
 
 export default {

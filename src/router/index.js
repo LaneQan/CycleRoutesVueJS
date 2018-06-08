@@ -8,6 +8,7 @@ import RouteInfo from '@/components/pages/RouteInfo';
 import MyRoutes from '@/components/pages/MyRoutes';
 import FavouriteRoutes from '@/components/pages/FavouriteRoutes';
 import AddRoute from '@/components/pages/AddRoute';
+import Profile from '@/components/pages/Profile';
 
 Vue.use(Router);
 
@@ -43,7 +44,7 @@ export default new Router({
             beforeEnter: authRequired,
         },
         {
-            path: '/favourite-routes',
+            path: '/favourites',
             name: 'FavouriteRoutes',
             component: FavouriteRoutes,
             beforeEnter: authRequired,
@@ -53,7 +54,18 @@ export default new Router({
             name: 'AddRoute',
             component: AddRoute,
             beforeEnter: authRequired,
-        }
+        },
+        {
+            path: '/profile/:id',
+            name: 'Profile',
+            component: Profile,
+        },
+        {
+            path: '/my-profile',
+            name: 'Profile',
+            component: Profile,
+            beforeEnter: authRequired,
+        },
     ],
 });
 

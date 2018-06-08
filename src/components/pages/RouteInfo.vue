@@ -53,8 +53,8 @@
 							<div class="about-container pa-3">
 								<v-layout class="about-container__item" row wrap>
 									<v-flex class="item__title" xs6> Автор</v-flex>
-									<v-flex class="item__description" xs6>
-										<v-avatar size="36px" class="hidden-xs-only avatar-image">
+									<v-flex class="item__description item__user" xs6 @click="userInfo">
+										<v-avatar size="36px" class="avatar-image">
 											<img :src="route.user.image ? route.user.image : noPhoto" alt="avatar">
 										</v-avatar>
 										{{ route.user.login }} </v-flex>
@@ -218,7 +218,10 @@ export default {
     },
     isUserAuthenticated() {
       return AuthService.isUserAuthenticated();
-    },
+		},
+		userInfo() {
+			this.$router.push(`/profile/${this.route.user.id}`);
+		},
   },
 };
 </script>
@@ -240,11 +243,12 @@ export default {
 
 .card-title {
   font-size: 32px;
-  font-weight: 400;
+  font-weight: 100;
 }
 
 .card-description {
-  font-size: 18px;
+	font-size: 18px;
+	font-weight: 300;
 }
 
 .route-map {
@@ -287,7 +291,7 @@ export default {
 }
 
 .avatar-image {
-  padding-right: 5px;
+  margin-right: 5px;
 }
 
 .stats-icon {
@@ -311,6 +315,10 @@ export default {
 
 .card-comments__title {
   font-size: 26px;
+}
+
+.item__user {
+	cursor: pointer;
 }
 
 @media (max-width: 960px) {

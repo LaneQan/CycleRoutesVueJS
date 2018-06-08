@@ -48,7 +48,7 @@ export default {
         {
           title: 'Личный кабинет',
           icon: 'mdi-account-box',
-          route: 'profile',
+          route: 'my-profile',
         },
         {
           title: 'Мои маршруты',

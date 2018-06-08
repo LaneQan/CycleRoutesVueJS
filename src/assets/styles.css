@@ -1,6 +1,7 @@
 .content {
     background-color: #f2f2f2;
     padding-bottom: 30px !important;
+    min-width: 400px;
 }
 
 .cards-container {

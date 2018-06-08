@@ -1,6 +1,6 @@
 import axios from 'axios';
 import apiConfig from '@apiConfig';
-import { FETCH_ROUTES, FETCH_ROUTE, FETCH_USER_ROUTES, LIKE_ROUTE } from './mutation-types';
+import { FETCH_ROUTES, FETCH_ROUTE, FETCH_USER_ROUTES, LIKE_ROUTE, FETCH_FAVOURITE_ROUTES } from './mutation-types';
 
 export function fetchRoutes({ commit }) {
     return new Promise((resolve, reject) => {
@@ -50,6 +50,20 @@ export function likeRoute({ commit }, payload) {
             .get(`${apiConfig.api}/api/routes/like/${payload.routeId}`)
             .then(res => {
                 commit(LIKE_ROUTE, payload);
+                resolve();
+            })
+            .catch(err => {
+                reject(err);
+            });
+    });
+}
+
+export function fetchFavouriteRoutes({ commit }, userId) {
+    return new Promise((resolve, reject) => {
+        axios
+            .get(`${apiConfig.api}/api/routes/favourite/${userId}`)
+            .then(res => {
+                commit(FETCH_FAVOURITE_ROUTES, res.data);
                 resolve();
             })
             .catch(err => {

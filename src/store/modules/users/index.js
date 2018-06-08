@@ -3,10 +3,12 @@ import * as getters from './getters';
 import AuthService from '../../../services/AuthService';
 import router from '../../../router';
 
-import { LOG_IN, LOG_OUT } from './mutation-types';
+import { LOG_IN, LOG_OUT, FETCH_INFO, SET_UPLOADING_PHOTO } from './mutation-types';
 
 const initialState = {
     user: AuthService.isUserAuthenticated() ? AuthService.getPayload() : {},
+    userInfo: {},
+    uploadingPhoto: null,
 };
 
 const mutations = {
@@ -20,6 +22,12 @@ const mutations = {
         AuthService.deauthenticateUser();
         state.user = {};
         location.reload();
+    },
+    [FETCH_INFO](state, userInfo) {
+        state.userInfo = { ...userInfo };
+    },
+    [SET_UPLOADING_PHOTO](state, photo) {
+        state.uploadingPhoto = photo;
     },
 };
 
