@@ -38,10 +38,7 @@
 				<v-flex lg6 md6 sm12 xs12>
 					<div class="info-card info-map">
 						<v-card>
-							<v-flex class="route-map">
-								<iframe frameborder="0" class="frame-map" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAATuCNslc3UeGBCHJ0rJeM2Lu0jwgcc6I
-    &q=Space+Needle,Seattle+WA">
-								</iframe>
+							<v-flex class="route-map" ref="routeMap">
 							</v-flex>
 						</v-card>
 					</div>
@@ -127,12 +124,6 @@
 
 			</v-layout>
 
-			<div class="info-card">
-				<v-card>
-					<div class="card-comments__title px-3 py-2"> Комментарии: </div>
-				</v-card>
-			</div>
-
 		</v-layout>
 	</v-container>
 	<v-card-text v-else class="progress-loading">
@@ -159,6 +150,7 @@ export default {
       loading: false,
       noImage: noImage,
       noPhoto: noPhoto,
+      map: {},
       networksList: [
         {
           title: 'VK',
@@ -209,6 +201,9 @@ export default {
       route: 'getCurrentRoute',
     }),
   },
+  mounted() {
+    this.initMap();
+  },
   methods: {
     handleLike() {
       this.$store.dispatch('likeRoute', {
@@ -218,10 +213,31 @@ export default {
     },
     isUserAuthenticated() {
       return AuthService.isUserAuthenticated();
-		},
-		userInfo() {
-			this.$router.push(`/profile/${this.route.user.id}`);
-		},
+    },
+    userInfo() {
+      this.$router.push(`/profile/${this.route.user.id}`);
+    },
+    initMap() {
+      setTimeout(() => {
+        this.map = new google.maps.Map(this.$refs.routeMap, {
+          zoom: 9,
+          center: { lat: 53.8840092, lng: 27.5796476 },
+        });
+        const coords = JSON.parse(this.route.mapLink);
+        this.map.data.addGeoJson(coords);
+
+        coords.features[0].geometry.coordinates.forEach((item, index) => {
+          const marker = new google.maps.Marker({
+            position: {
+              lat: item[1],
+              lng: item[0],
+            },
+            title: 'Маркер ' + ++index,
+            map: this.map,
+          });
+        });
+      }, 1200);
+    },
   },
 };
 </script>
@@ -247,15 +263,15 @@ export default {
 }
 
 .card-description {
-	font-size: 18px;
-	font-weight: 300;
+  font-size: 18px;
+  font-weight: 300;
 }
 
 .route-map {
   flex: 1 1 auto;
   display: flex;
   max-height: 530px;
-	height: 50vw;
+  height: 50vw;
 }
 
 .info-map {
@@ -318,7 +334,7 @@ export default {
 }
 
 .item__user {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 @media (max-width: 960px) {
@@ -326,9 +342,9 @@ export default {
     max-width: 960px;
   }
 }
-  @media (min-width: 961px) {
-    .route-map {
-      height: 531px;
-    }
+@media (min-width: 961px) {
+  .route-map {
+    height: 531px;
+  }
 }
 </style>

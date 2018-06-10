@@ -22,7 +22,7 @@
         <v-btn v-if="showFavorite && isUserAuthenticated()" icon @click="handleLike(route.id)" v-bind:class="{ 'btn-liked': route.isLiked }">
           <v-icon>favorite</v-icon>
         </v-btn>
-        <v-btn v-if="showDelete && isUserAuthenticated()" icon>
+        <v-btn v-if="showDelete && isUserAuthenticated()" @click="handleDeleteRoute()" icon>
           <v-icon>mdi-delete</v-icon>
         </v-btn>
         <v-menu bottom left offset-y>
@@ -52,7 +52,7 @@ import { mapActions } from 'vuex';
 import noImage from '../../assets/static/images/no-image.png';
 export default {
   name: 'card',
-  props: ['route', 'showFavorite', 'showDelete'],
+  props: ['route', 'showFavorite', 'showDelete', 'deleteRoute'],
   data() {
     return {
       noImage: noImage,
@@ -109,7 +109,13 @@ export default {
       return AuthService.isUserAuthenticated();
     },
     handleLike(routeId) {
-      this.$store.dispatch('likeRoute', { routeId: this.route.id, likeType: 2 });
+      this.$store.dispatch('likeRoute', {
+        routeId: this.route.id,
+        likeType: 2,
+      });
+    },
+    handleDeleteRoute() {
+      this.$emit('deleteRoute', this.route);
     },
   },
 };

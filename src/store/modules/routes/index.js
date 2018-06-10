@@ -6,7 +6,8 @@ import {
     FETCH_ROUTE,
     FETCH_USER_ROUTES,
     LIKE_ROUTE,
-    FETCH_FAVOURITE_ROUTES
+    FETCH_FAVOURITE_ROUTES,
+    DELETE_ROUTE
 } from './mutation-types';
 
 const initialState = {
@@ -28,7 +29,7 @@ const mutations = {
     [LIKE_ROUTE](state, payload) {
         if (payload.likeType === 1) {
             state.currentRoute.isLiked ? state.currentRoute.likesCount-- : state.currentRoute.likesCount++;
-            state.currentRoute.isLiked = !state.currentRoute.isLiked;    
+            state.currentRoute.isLiked = !state.currentRoute.isLiked;
         } else {
             let route = state.routes.find(x => x.id === payload.routeId)
             route.isLiked ? route.likesCount-- : route.likesCount++;
@@ -38,6 +39,10 @@ const mutations = {
     [FETCH_FAVOURITE_ROUTES](state, routes) {
         state.routes = [...routes];
     },
+    [DELETE_ROUTE](state, routeId) {
+        const routeIndex = state.routes.findIndex(item => item.id === routeId);
+        state.routes.splice(routeIndex, 1);
+    }
 };
 
 export default {

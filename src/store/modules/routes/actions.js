@@ -1,8 +1,17 @@
 import axios from 'axios';
 import apiConfig from '@apiConfig';
-import { FETCH_ROUTES, FETCH_ROUTE, FETCH_USER_ROUTES, LIKE_ROUTE, FETCH_FAVOURITE_ROUTES } from './mutation-types';
+import {
+    FETCH_ROUTES,
+    FETCH_ROUTE,
+    FETCH_USER_ROUTES,
+    LIKE_ROUTE,
+    FETCH_FAVOURITE_ROUTES,
+    DELETE_ROUTE
+} from './mutation-types';
 
-export function fetchRoutes({ commit }) {
+export function fetchRoutes({
+    commit
+}) {
     return new Promise((resolve, reject) => {
         axios
             .get(`${apiConfig.api}/api/routes`)
@@ -16,10 +25,17 @@ export function fetchRoutes({ commit }) {
     });
 }
 
-export function fetchRoute({ commit }, id) {
+export function fetchRoute({
+    commit
+}, id) {
     return new Promise((resolve, reject) => {
         axios
-            .get(`${apiConfig.api}/api/routes/${id}`)
+            .get(`${apiConfig.api}/api/routes/${id}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json'
+                },
+            })
             .then(res => {
                 commit(FETCH_ROUTE, res.data);
                 resolve();
@@ -30,7 +46,9 @@ export function fetchRoute({ commit }, id) {
     });
 }
 
-export function fetchUserRoutes({ commit }, userId) {
+export function fetchUserRoutes({
+    commit
+}, userId) {
     return new Promise((resolve, reject) => {
         axios
             .get(`${apiConfig.api}/api/routes/user/${userId}`)
@@ -44,7 +62,9 @@ export function fetchUserRoutes({ commit }, userId) {
     });
 }
 
-export function likeRoute({ commit }, payload) {
+export function likeRoute({
+    commit
+}, payload) {
     return new Promise((resolve, reject) => {
         axios
             .get(`${apiConfig.api}/api/routes/like/${payload.routeId}`)
@@ -58,7 +78,9 @@ export function likeRoute({ commit }, payload) {
     });
 }
 
-export function fetchFavouriteRoutes({ commit }, userId) {
+export function fetchFavouriteRoutes({
+    commit
+}, userId) {
     return new Promise((resolve, reject) => {
         axios
             .get(`${apiConfig.api}/api/routes/favourite/${userId}`)
@@ -71,3 +93,34 @@ export function fetchFavouriteRoutes({ commit }, userId) {
             });
     });
 }
+
+export function addRoute({
+    commit
+}, form) {
+    return new Promise((resolve, reject) => {
+        axios.post(`${apiConfig.api}/api/routes/add`, form, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then(res => {
+            resolve(res);
+        }).catch(err => {
+            console.log(err);
+            reject(err);
+        });
+    });
+};
+
+export function deleteRoute({
+    commit
+}, route) {
+    return new Promise((resolve, reject) => {
+        axios.get(`${apiConfig.api}/api/routes/delete/${route.id}` ).then(() => {
+            commit(DELETE_ROUTE, route.id);
+            resolve();
+        }).catch(err => {
+            console.log(err);
+            reject(err);
+        });
+    });
+};

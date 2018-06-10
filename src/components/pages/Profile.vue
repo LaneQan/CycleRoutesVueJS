@@ -27,8 +27,6 @@
             <v-layout px-4 class="info-container__additional" row wrap>
               <v-flex xs4 class="info__additional info__title">Логин:</v-flex>
               <v-flex xs8 class="info__description">{{ userInfo.login }}</v-flex>
-              <v-flex xs4 class="info__additional info__title">Дата рождения:</v-flex>
-              <v-flex xs8 class="info__description">{{ userInfo.birthDate ? formatDate(userInfo.birthDate): '' }}</v-flex>
               <v-flex xs4 class="info__additional info__title">Текущий город:</v-flex>
               <v-flex xs8 class="info__description">{{ userInfo.currentCity ? userInfo.currentCity : '-' }}</v-flex>
               <v-flex xs4 class="info__additional info__title">Телефон:</v-flex>
