@@ -7,9 +7,20 @@
       </v-card>
     </div>
     <template v-for="route in filterRoutes">
-      <route-card v-bind:key="route.id" :route="route" :showFavorite="true">
+      <route-card v-bind:key="route.id" :route="route" :showFavorite="true" @deleteRoute="deleteRoute">
       </route-card>
     </template>
+    <v-dialog v-model="deleteConfirm" persistent max-width="350">
+      <v-card>
+        <v-card-title class="headline">Подтверждение удаления</v-card-title>
+        <v-card-text>Вы точно хотите удалить данный маршрут?</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="green darken-1" flat @click.native="cancelDelete">Отмена</v-btn>
+          <v-btn color="green darken-1" flat @click.native="confirmDelete">Ок</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
   <v-card-text v-else class="progress-loading">
     <v-progress-circular indeterminate v-bind:size="70" v-bind:width="7" color="indigo"></v-progress-circular>
@@ -29,6 +40,8 @@ export default {
     return {
       loading: false,
       addRouteImage: addRouteImage,
+      routeToDelete: {},
+      deleteConfirm: false,
     };
   },
   created() {
@@ -80,6 +93,20 @@ export default {
   methods: {
     addRoute() {
       this.$router.push('/add-route');
+    },
+    confirmDelete() {
+      this.$store.dispatch('deleteRoute', this.routeToDelete).then(() => {
+        this.routeToDelete = {};
+        this.deleteConfirm = false;
+      });
+    },
+    cancelDelete() {
+      this.deleteConfirm = false;
+      this.routeToDelete = {};
+    },
+    deleteRoute(route) {
+      this.routeToDelete = route;
+      this.deleteConfirm = true;
     },
   },
 };

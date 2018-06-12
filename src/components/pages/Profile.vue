@@ -168,10 +168,8 @@ export default {
     savePhoto() {
       this.dialogEditPhoto = false;
       this.uploadingPhoto = this.$refs.modal._data.photoPreview;
-      console.log(this.$refs.modal._data.photoPreview);
       let form = new FormData();
       form.append('file', this.$refs.modal._data.photoPreview, this.$refs.modal._data.photoPreview.name);
-      console.log(this.userId);
       form.append('UserId', this.userId);
       this.$store.dispatch('uploadImage', form)
     },

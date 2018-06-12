@@ -11,7 +11,7 @@
         <v-text-field label="Имя" v-model="firstname" v-validate="nameRules" name="имя" :rules="(!errors.first('имя')) ? [true] : [errors.first('имя')]" required>
         </v-text-field>
 
-         <v-text-field label="Фамилия" v-model="lastname" v-validate="nameRules" name="имя" :rules="(!errors.first('фамилия')) ? [true] : [errors.first('фамилия')]" required>
+        <v-text-field label="Фамилия" v-model="lastname" v-validate="nameRules" name="имя" :rules="(!errors.first('фамилия')) ? [true] : [errors.first('фамилия')]" required>
         </v-text-field>
 
         <v-text-field label="E-mail" v-model="email" v-validate="emailRules" name="e-mail" :rules="(!errors.first('e-mail')) ? [true] : [errors.first('e-mail')]" required>
@@ -54,7 +54,7 @@ export default {
       firstname: '',
       lastname: '',
       nameRules: {
-        required: true
+        required: true,
       },
       emailRules: {
         required: true,

@@ -1,7 +1,7 @@
 <template>
   <div class="route-card">
     <v-card>
-      <v-card-media class="route-card__image" v-bind:src="route.images ? route.images[0].name : noImage" @click="routeInfo(route.id)">
+      <v-card-media class="route-card__image" v-bind:src="route.images.length ? route.images[0].name : noImage" @click="routeInfo(route.id)">
       </v-card-media>
       <v-card-title class="route-card__title" primary-title @click="routeInfo(route.id)">
         <div>
@@ -22,7 +22,7 @@
         <v-btn v-if="showFavorite && isUserAuthenticated()" icon @click="handleLike(route.id)" v-bind:class="{ 'btn-liked': route.isLiked }">
           <v-icon>favorite</v-icon>
         </v-btn>
-        <v-btn v-if="showDelete && isUserAuthenticated()" @click="handleDeleteRoute()" icon>
+        <v-btn v-if="(showDelete && isUserAuthenticated()) || isAdministratorAuthenticated()" @click="handleDeleteRoute()" icon>
           <v-icon>mdi-delete</v-icon>
         </v-btn>
         <v-menu bottom left offset-y>
@@ -107,6 +107,10 @@ export default {
     },
     isUserAuthenticated() {
       return AuthService.isUserAuthenticated();
+    },
+    isAdministratorAuthenticated()
+    {
+      return AuthService.isAdministratorAuthenticated();
     },
     handleLike(routeId) {
       this.$store.dispatch('likeRoute', {
