@@ -1,8 +1,15 @@
 import axios from 'axios';
 import apiConfig from '@apiConfig';
-import { LOG_IN, LOG_OUT, FETCH_INFO, SET_UPLOADING_PHOTO } from './mutation-types';
+import {
+    LOG_IN,
+    LOG_OUT,
+    FETCH_INFO,
+    SET_UPLOADING_PHOTO
+} from './mutation-types';
 
-export function logIn({ commit }, creds) {
+export function logIn({
+    commit
+}, creds) {
     return new Promise((resolve, reject) => {
         axios
             .post(`${apiConfig.api}/api/operation/login`, creds)
@@ -16,7 +23,9 @@ export function logIn({ commit }, creds) {
     });
 }
 
-export function signUp({ commit }, creds) {
+export function signUp({
+    commit
+}, creds) {
     return new Promise((resolve, reject) => {
         axios
             .post(`${apiConfig.api}/api/operation/register`, creds)
@@ -30,11 +39,15 @@ export function signUp({ commit }, creds) {
     });
 }
 
-export function logOut({ commit }) {
+export function logOut({
+    commit
+}) {
     commit(LOG_OUT);
 }
 
-export function fetchInfo({ commit }, userId) {
+export function fetchInfo({
+    commit
+}, userId) {
     return new Promise((resolve, reject) => {
         axios
             .get(`${apiConfig.api}/api/users/${userId}`)
@@ -48,6 +61,38 @@ export function fetchInfo({ commit }, userId) {
     });
 }
 
-export function setUploadingPhoto({ commit }, photo) {
+export function setUploadingPhoto({
+    commit
+}, photo) {
     commit(SET_UPLOADING_PHOTO, photo);
 }
+
+export function uploadImage({
+    commit
+}, form) {
+    return new Promise((resolve, reject) => {
+        axios.post(`${apiConfig.api}/api/users/upload`, form, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then(res => {
+            resolve();
+        }).catch(err => {
+            console.log(err);
+            reject(err);
+        });
+    });
+};
+
+export function deleteImage({
+    commit
+}, userId) {
+    return new Promise((resolve, reject) => {
+        axios.get(`${apiConfig.api}/api/users/delete/${userId}`).then(() => {
+            resolve();
+        }).catch(err => {
+            console.log(err);
+            reject(err);
+        });
+    });
+};

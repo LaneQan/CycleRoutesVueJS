@@ -90,7 +90,6 @@
 <script>
 import { mapGetters } from 'vuex';
 import vue2Dropzone from 'vue2-dropzone';
-import JSON from 'circular-json';
 
 export default {
   name: 'add-route',
@@ -103,7 +102,7 @@ export default {
         url: 'https://httpbin.org/post',
         thumbnailWidth: 240,
         addRemoveLinks: true,
-        maxFilesize: 1,
+        maxFilesize: 10,
         dictDefaultMessage: 'Переместите фото для загрузки',
         dictCancelUpload: 'Отменить загрузку',
         dictRemoveFile: 'Удалить фото',
@@ -151,7 +150,7 @@ export default {
 
           this.$store.dispatch('addRoute', form).then(() => {
             this.loading = false;
-            this.$router.push('/');
+            this.$router.push('/routes');
           });
         } else alert('Не выбраны точки на карте!');
       }

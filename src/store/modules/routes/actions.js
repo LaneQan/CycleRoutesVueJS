@@ -115,7 +115,7 @@ export function deleteRoute({
     commit
 }, route) {
     return new Promise((resolve, reject) => {
-        axios.get(`${apiConfig.api}/api/routes/delete/${route.id}` ).then(() => {
+        axios.get(`${apiConfig.api}/api/routes/delete/${route.id}`).then(() => {
             commit(DELETE_ROUTE, route.id);
             resolve();
         }).catch(err => {

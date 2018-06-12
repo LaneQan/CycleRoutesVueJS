@@ -8,20 +8,20 @@
                 <template v-if="userHasImage()">
                     <v-divider></v-divider>
                     <v-card-actions class="card-actions">
-                        <v-btn flat block @click="onSavePhoto()">Save photo</v-btn>
+                        <v-btn flat block @click="onSavePhoto()">Сохранить фотографию</v-btn>
                     </v-card-actions>
                 </template>
                 <v-divider></v-divider>
                 <v-card-actions class="card-actions">
-                    <v-btn flat block @click="onAddPhoto()">{{ userHasImage() ? 'Change photo' : 'Add photo' }}</v-btn>
+                    <v-btn flat block @click="onAddPhoto()">{{ userHasImage() ? 'Изменить фотографию' : 'Добавить фотографию' }}</v-btn>
                 </v-card-actions>
                 <v-divider></v-divider>
                 <v-card-actions class="card-actions">
-                    <v-btn flat block @click="onDelete()">Delete photo</v-btn>
+                    <v-btn flat block @click="onDelete()">Удалить фотографию</v-btn>
                 </v-card-actions>
                 <v-divider></v-divider>
                 <v-card-actions class="card-actions">
-                    <v-btn flat block @click="onCancel()">Cancel</v-btn>
+                    <v-btn flat block @click="onCancel()">Закрыть</v-btn>
                 </v-card-actions>
             </v-card>
         </div>

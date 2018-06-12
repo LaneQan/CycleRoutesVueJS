@@ -1,7 +1,7 @@
 <template>
   <div class="route-card">
     <v-card>
-      <v-card-media class="route-card__image" v-bind:src="route.image ? route.image : noImage" @click="routeInfo(route.id)">
+      <v-card-media class="route-card__image" v-bind:src="route.images ? route.images[0].name : noImage" @click="routeInfo(route.id)">
       </v-card-media>
       <v-card-title class="route-card__title" primary-title @click="routeInfo(route.id)">
         <div>

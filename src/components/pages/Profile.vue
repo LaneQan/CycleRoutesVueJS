@@ -30,7 +30,7 @@
               <v-flex xs4 class="info__additional info__title">Текущий город:</v-flex>
               <v-flex xs8 class="info__description">{{ userInfo.currentCity ? userInfo.currentCity : '-' }}</v-flex>
               <v-flex xs4 class="info__additional info__title">Телефон:</v-flex>
-              <v-flex xs8 class="info__description">{{ userInfo.phone ? userInfo.phone : '-' }}</v-flex>
+              <v-flex xs8 class="info__description">{{ userInfo.phone ? `+375${userInfo.phone}` : '-' }}</v-flex>
               <v-flex xs4 class="info__additional info__title">Добавленных маршрутов:</v-flex>
               <v-flex xs8 class="info__description">{{ userInfo.routesCount }}</v-flex>
               <v-flex xs4 class="info__additional info__title">Поставленных лайков:</v-flex>
@@ -168,6 +168,12 @@ export default {
     savePhoto() {
       this.dialogEditPhoto = false;
       this.uploadingPhoto = this.$refs.modal._data.photoPreview;
+      console.log(this.$refs.modal._data.photoPreview);
+      let form = new FormData();
+      form.append('file', this.$refs.modal._data.photoPreview, this.$refs.modal._data.photoPreview.name);
+      console.log(this.userId);
+      form.append('UserId', this.userId);
+      this.$store.dispatch('uploadImage', form)
     },
     showDialog() {
       this.dialogEditPhoto = true;
