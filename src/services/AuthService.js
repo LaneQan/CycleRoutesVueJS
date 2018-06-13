@@ -9,7 +9,7 @@ class AuthService {
         return localStorage.getItem('token') !== null;
     }
     static isAdministratorAuthenticated(token = AuthService.getToken()) {
-        return decoder(token).IsAdministrator;
+        return token ? decoder(token).IsAdministrator : false;
     }
 
     static deauthenticateUser() {
