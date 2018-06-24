@@ -1,22 +1,26 @@
 <template>
   <v-container v-if="!loading" class="main-container">
     <div class="profile-container">
-      <div class="profile-card">
+      <div v-if="!uploading" class="profile-card">
         <div class="photo-card__photo">
           <v-layout row>
             <v-flex pt-3 xs12 align-center justify-center text-xs-center>
               <input type="file" @change="onChangePhoto" ref="file" style="display:none" accept=".png, .jpg, .jpeg" />
-              <v-avatar size="260px">
+              <v-avatar size="260px" class="px-2 pb-3">
                 <img :src="userInfo.image ? userInfo.image : noPhoto">
               </v-avatar>
               <v-layout v-if="isMyProfile()" py-3 row wrap align-center justify-center>
-                <v-btn color="primary" class="info__btn" @click="dialogEditPhoto=true">Редактировать фотографию</v-btn>
-                <v-btn color="primary" class="info__btn">Редактировать профиль</v-btn>
+                <v-btn v-if="!editMode" color="primary" class="info__btn" @click="dialogEditPhoto=true">Редактировать фотографию</v-btn>
+                <v-btn v-if="!editMode" color="primary" class="info__btn" @click="editMode=true">Редактировать профиль</v-btn>
+                <v-btn v-if="editMode" color="primary" class="info__btn" @click="saveProfile">Сохранить изменения</v-btn>
               </v-layout>
             </v-flex>
           </v-layout>
         </div>
       </div>
+      <v-card-text v-else class="progress-loading">
+        <v-progress-circular indeterminate v-bind:size="70" v-bind:width="7" color="indigo"></v-progress-circular>
+      </v-card-text>
       <div class="profile-card">
         <div class="personal-card__info">
           <v-layout row wrap>
@@ -28,9 +32,23 @@
               <v-flex xs4 class="info__additional info__title">Логин:</v-flex>
               <v-flex xs8 class="info__description">{{ userInfo.login }}</v-flex>
               <v-flex xs4 class="info__additional info__title">Текущий город:</v-flex>
-              <v-flex xs8 class="info__description">{{ userInfo.currentCity ? userInfo.currentCity : '-' }}</v-flex>
+              <v-flex xs8 class="info__description">
+                <template v-if="!editMode">
+                  {{ userInfo.currentCity ? userInfo.currentCity : '-' }}
+                </template>
+                <template v-else>
+                  <v-text-field class="info-edit" v-model="city"></v-text-field>
+                </template>
+              </v-flex>
               <v-flex xs4 class="info__additional info__title">Телефон:</v-flex>
-              <v-flex xs8 class="info__description">{{ userInfo.phone ? `+375${userInfo.phone}` : '-' }}</v-flex>
+              <v-flex xs8 class="info__description">
+                <template v-if="!editMode">
+                  {{ userInfo.phone ? `+375${userInfo.phone}` : '-' }}
+                </template>
+                <template v-else>
+                  <v-text-field class="info-edit" v-model="phone" mask="(##) ###-##-##" :prefix="getPhone(phone) ? '+375': ''"></v-text-field>
+                </template>
+              </v-flex>
               <v-flex xs4 class="info__additional info__title">Добавленных маршрутов:</v-flex>
               <v-flex xs8 class="info__description">{{ userInfo.routesCount }}</v-flex>
               <v-flex xs4 class="info__additional info__title">Поставленных лайков:</v-flex>
@@ -38,7 +56,14 @@
             </v-layout>
             <v-layout px-4 class="info-container__about" row wrap>
               <v-flex xs12 class="info__title">О себе:</v-flex>
-              <v-flex xs12 class="about__description">{{ userInfo.about ? userInfo.about : 'Нет информации' }}</v-flex>
+              <v-flex xs12 class="about__description">
+                <template v-if="!editMode">
+                  {{ userInfo.about ? userInfo.about : 'Нет информации' }}
+                </template>
+                <template v-else>
+                  <v-text-field class="info-edit" v-model="about" multi-line></v-text-field>
+                </template>
+              </v-flex>
             </v-layout>
           </v-layout>
         </div>
@@ -80,6 +105,11 @@ export default {
       loading: false,
       uploadingPhoto: null,
       dialogEditPhoto: false,
+      uploading: false,
+      editMode: false,
+      city: '',
+      phone: '',
+      about: '',
     };
   },
   created() {
@@ -90,6 +120,9 @@ export default {
     this.$store.dispatch('fetchInfo', userId).then(() => {
       this.$store.dispatch('fetchUserRoutes', userId).then(() => {
         this.loading = false;
+        this.city = this.userInfo.currentCity;
+        this.phone = this.userInfo.phone;
+        this.about = this.userInfo.about;
       });
     });
   },
@@ -109,7 +142,7 @@ export default {
       return moment(date).format('DD.MM.YYYY');
     },
     isMyProfile() {
-      return this.$router.history.current.path === '/my-profile'
+      return this.$router.history.current.path === '/my-profile';
     },
     uploadPhotoAndSave() {
       this.$store.dispatch('uploadPhoto', this.uploadingPhoto).then(
@@ -159,8 +192,7 @@ export default {
     },
     deletePhoto() {
       this.uploadingPhoto = null;
-      this.setUploadingPhoto(null);
-      this.dialogEditPhoto = false;
+      this.$store.dispatch('deleteImage', this.userId);
     },
     choosePhoto() {
       this.$refs.file.click();
@@ -169,12 +201,36 @@ export default {
       this.dialogEditPhoto = false;
       this.uploadingPhoto = this.$refs.modal._data.photoPreview;
       let form = new FormData();
-      form.append('file', this.$refs.modal._data.photoPreview, this.$refs.modal._data.photoPreview.name);
+
+      let binary = atob(this.$refs.modal._data.photoPreview.split(',')[1]);
+      let array = [];
+      for (let i = 0; i < binary.length; i++) {
+        array.push(binary.charCodeAt(i));
+      }
+      const userPhoto = new Blob([new Uint8Array(array)], {
+        type: 'image/jpeg',
+      });
+      form.append('file', userPhoto, this.$refs.modal._data.photoPreview.name);
       form.append('UserId', this.userId);
-      this.$store.dispatch('uploadImage', form)
+      this.uploading = true;
+      this.$store
+        .dispatch('uploadImage', form)
+        .then(() => (this.uploading = false));
     },
     showDialog() {
       this.dialogEditPhoto = true;
+    },
+    getPhone(number) {
+      return number ? number.replace('+375', '') : '';
+    },
+    saveProfile() {
+      const payload = {
+        About: this.about,
+        Phone: this.phone,
+        CurrentCity: this.city,
+        Id: this.userId,
+      };
+      this.$store.dispatch('editInfo', payload).then(() => this.editMode = false);
     },
   },
 };
@@ -260,6 +316,19 @@ export default {
 
 .about__description {
   padding-bottom: 8px;
+}
+
+.info-edit >>> input {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.info-edit >>> .input-group__details {
+  min-height: 7px !important;
+}
+
+.info-edit {
+  padding: 0px !important;
 }
 
 @media (max-width: 757px) {

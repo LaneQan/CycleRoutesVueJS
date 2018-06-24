@@ -135,6 +135,7 @@ export default {
           if (this.files.length) {
             this.files.forEach(file => {
               form.append('file', file, file.name);
+              console.log(file);
             });
           }
           form.append('RouteName', this.routeName);

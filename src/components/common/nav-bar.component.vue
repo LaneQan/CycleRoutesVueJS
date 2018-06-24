@@ -10,9 +10,9 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-avatar v-if="isUserAuthenticated()" size="40px" class="hidden-xs-only avatar-image">
-        <img :src="user.Image ? user.Image : noPhoto" alt="avatar">
+        <img :src="user.image ? user.image : noPhoto" alt="avatar">
       </v-avatar>
-      <div v-if="isUserAuthenticated()" class="user-email"> {{ user.Email }} </div>
+      <div v-if="isUserAuthenticated()" class="user-email"> {{ user.login }} </div>
       <v-menu bottom left offset-y>
         <v-btn icon slot="activator" dark class="more-btn">
           <v-icon>mdi-menu-down</v-icon>
@@ -39,6 +39,9 @@ export default {
   name: 'nav-bar',
   components: {
     filters: Filters,
+  },
+  created() {
+    this.$store.dispatch('fetchInfo', this.userId);
   },
   data() {
     return {
@@ -78,7 +81,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      user: 'getUser',
+      user: 'getUserInfo',
+      userId: 'getUserId',
     }),
   },
   methods: {
@@ -130,6 +134,12 @@ button.menu-down.btn.btn--icon {
 
 .avatar-image {
   margin-right: 20px;
+}
+
+@media (max-width: 600px) {
+  .nav-title {
+    font-size: 22px;
+  }
 }
 
 </style>

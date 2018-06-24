@@ -4,7 +4,10 @@ import {
     LOG_IN,
     LOG_OUT,
     FETCH_INFO,
-    SET_UPLOADING_PHOTO
+    SET_UPLOADING_PHOTO,
+    CHANGE_PHOTO,
+    DELETE_PHOTO,
+    CHANGE_INFO,
 } from './mutation-types';
 
 export function logIn({
@@ -76,6 +79,7 @@ export function uploadImage({
                 'Content-Type': 'multipart/form-data'
             }
         }).then(res => {
+            commit(CHANGE_PHOTO, res.data)
             resolve();
         }).catch(err => {
             console.log(err);
@@ -89,6 +93,21 @@ export function deleteImage({
 }, userId) {
     return new Promise((resolve, reject) => {
         axios.get(`${apiConfig.api}/api/users/delete/${userId}`).then(() => {
+            commit(DELETE_PHOTO)
+            resolve();
+        }).catch(err => {
+            console.log(err);
+            reject(err);
+        });
+    });
+};
+
+export function editInfo({
+    commit
+}, payload) {
+    return new Promise((resolve, reject) => {
+        axios.post(`${apiConfig.api}/api/users/edit`, payload).then(() => {
+            commit(CHANGE_INFO, payload)
             resolve();
         }).catch(err => {
             console.log(err);

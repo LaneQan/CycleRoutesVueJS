@@ -20,7 +20,7 @@
         <v-text-field label="Текущий город" v-model="currentCity">
         </v-text-field>
 
-        <v-text-field mask="(##) ###-##-##" :prefix="getPhone(phone.number) ? '+375': ''" label="Мобильный телефон" v-model="phone">
+        <v-text-field mask="(##) ###-##-##" :prefix="getPhone(phone) ? '+375': ''" label="Мобильный телефон" v-model="phone">
         </v-text-field>
 
         <v-text-field label="Пароль" v-model="password" v-validate="passwordRules" name="пароль" :rules="(!errors.first('пароль')) ? [true] : [errors.first('пароль')]" required type="password">
